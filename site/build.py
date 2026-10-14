@@ -65,6 +65,7 @@ def prepare_assets() -> Path:
 
     copy_file(BRAND_MASCOT / "fondy-greeting-color-light.svg", assets / "mascot")
     copy_file(BRAND_FAVICONS / "favicon.svg", assets / "favicons")
+    copy_file(BRAND_FAVICONS / "signal-logo.svg", assets / "favicons")
     for filename in ("dela-gothic-one.woff2", "onest-variable.woff2", "dela-gothic-one-OFL.txt", "onest-variable-OFL.txt"):
         copy_file(BRAND_FONTS / filename, assets / "fonts")
     return assets
@@ -105,8 +106,8 @@ def main() -> None:
     (assets / "site.js").write_text(scripts, encoding="utf-8")
 
     landing = page(
-        "Signal · маленькая мастерская жестов",
-        "Signal — маленькая браузерная мастерская Фонди: собери жест, дай ему паузу и сохрани открытку.",
+        "signal · побудь здесь немного",
+        "собери сигнал, оставь записку или сделай паузу. fondy побудет рядом. всё работает в браузере.",
         read_text(WORKSHOP_FILES["html"]),
     )
     (ROOT / "index.html").write_text(landing, encoding="utf-8")

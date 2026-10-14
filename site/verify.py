@@ -42,6 +42,16 @@ with sync_playwright() as playwright:
         assert not result["overflow"] and result["h1"] == 1 and result["main"] == 1
         assert result["scenes"] == 1 and not result["brokenImages"] and not result["unnamedButtons"] and result["fonts"], result
         report["pages"].append({"width": width, **result})
+        assert page.locator('[data-fondy-message]').count() == 1, "one persistent fondy companion is required"
+        assert page.locator('[data-fondy-mascot]').count() == 1
+        for mode in ("signal", "pause", "letter", "rhythm"):
+            page.locator(f'[role="tab"][data-workshop-mode="{mode}"]').click()
+            assert not page.evaluate("document.documentElement.scrollWidth > innerWidth"), (width, mode)
+            page.locator('[data-workshop-actions]').scroll_into_view_if_needed()
+            mascot = page.locator('[data-fondy-mascot]').bounding_box()
+            assert mascot and mascot["y"] >= 0 and mascot["y"] + mascot["height"] <= 960, (width, mode, mascot)
+        page.locator('[role="tab"][data-workshop-mode="signal"]').click()
+        page.evaluate("window.scrollTo(0, 0)")
         if width in (390, 1440):
             page.screenshot(path=str(OUT / f"workshop-{width}.png"), full_page=True)
 
@@ -51,6 +61,7 @@ with sync_playwright() as playwright:
     page.keyboard.press("ArrowRight")
     assert page.locator('[role="tab"][data-workshop-mode="pause"]').get_attribute("aria-selected") == "true"
     assert page.locator('[data-workshop-scene="pause"]').is_visible()
+    expect(page.locator('[data-fondy-message]')).to_contain_text("пауз")
     report["interactions"].append("scene tabs: ArrowRight moves focus and selection")
 
     page.locator('[role="tab"][data-workshop-mode="signal"]').click()
@@ -60,7 +71,14 @@ with sync_playwright() as playwright:
     assert len(page.evaluate("() => window.__signalWorkshop.getState().signal")) == 4
     page.locator('[data-signal-undo]').click()
     assert len(page.evaluate("() => window.__signalWorkshop.getState().signal")) == 3
+    expect(page.locator('[data-fondy-message]')).to_contain_text("убран")
     report["interactions"].append("signal: four-token cap, add, and undo")
+    signal_hash = page.evaluate("location.hash")
+    page.locator('.workshop-start').click()
+    assert page.evaluate("location.hash") == signal_hash, "page navigation must preserve the shared state"
+    assert len(page.evaluate("window.__signalWorkshop.getState().signal")) == 3
+    assert page.locator('[role="tab"][aria-selected="true"]').evaluate("node => node === document.activeElement")
+    report["interactions"].append("page navigation: start link preserves state and focuses the active tab")
 
     page.locator('[role="tab"][data-workshop-mode="letter"]').click()
     page.locator('[data-letter-note]').fill("Я рядом 👩‍🚀")
@@ -104,6 +122,10 @@ with sync_playwright() as playwright:
         page.locator('[data-workshop-action="export"]').click()
     assert download_info.value.suggested_filename in {"signal-postcard.png", "signal-postcard.svg"}
     report["interactions"].append("exports: portable HTML and image download")
+
+    page.evaluate("location.hash = SignalState.encodeState({...window.__signalWorkshop.getState(), mode: 'letter'})")
+    expect(page.locator('[data-fondy-message]')).to_contain_text("напишем")
+    report["interactions"].append("companion: follows scene changes from shared links")
 
     page.emulate_media(reduced_motion="reduce")
     assert page.locator('.workshop-mascot').evaluate("node => getComputedStyle(node).animationName") == "none"
