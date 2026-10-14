@@ -2,6 +2,10 @@
 (() => {
   'use strict';
 
+  const Locale = window.SignalI18n;
+  Locale.init();
+  const t = (message, values) => Locale.t(message, values);
+
   const root = document.querySelector('[data-workshop-root]');
   if (!root) return;
 
@@ -98,8 +102,8 @@
   const cancelRaf = id => { if (id != null) { window.cancelAnimationFrame(id); rafs.delete(id); } };
   const cancelAllRafs = () => { rafs.forEach(id => window.cancelAnimationFrame(id)); rafs.clear(); };
   const announce = message => {
-    if (status) status.textContent = message;
-    if (companionMessage) companionMessage.textContent = message;
+    if (status) status.textContent = t(message);
+    if (companionMessage) companionMessage.textContent = t(message);
   };
   const sceneFor = mode => scenes.find(scene => scene.dataset.workshopScene === mode);
   const activeScene = () => sceneFor(activeMode);
@@ -109,8 +113,8 @@
       const label = labels[button.dataset.workshopAction];
       if (!label) return;
       const textNode = Array.from(button.childNodes).find(node => node.nodeType === 3);
-      if (textNode) textNode.nodeValue = label;
-      else button.textContent = label;
+      if (textNode) textNode.nodeValue = t(label);
+      else button.textContent = t(label);
     });
   }
   const glyphShapes = {
@@ -157,7 +161,7 @@
     root.classList.remove('is-signal', 'is-pause', 'is-letter', 'is-rhythm');
     root.classList.add(`is-${nextMode}`);
     updateActionLabels(nextMode);
-    if (companionMessage && sceneChanged) companionMessage.textContent = companionPrompts[nextMode];
+    if (companionMessage && sceneChanged) companionMessage.textContent = t(companionPrompts[nextMode]);
     if (options.announce !== false) announce(companionPrompts[nextMode]);
     if (nextMode === 'pause') renderPause();
     if (nextMode === 'rhythm') renderRhythm();
@@ -219,20 +223,20 @@
       if (!state.signal[index]) return;
       slot.classList.add('is-filled');
       const glyph = createGlyph(state.signal[index], 'signal-slot-glyph');
-      glyph.setAttribute('aria-label', `знак ${index + 1}: ${tokenNames[state.signal[index]] || state.signal[index]}`);
+      glyph.setAttribute('aria-label', t('знак {index}: {name}', { index: index + 1, name: t(tokenNames[state.signal[index]] || state.signal[index]) }));
       slot.append(glyph);
       const controls = document.createElement('span');
       controls.className = 'signal-slot-controls';
-      const remove = slotButton('убрать знак', '×');
+      const remove = slotButton(t('убрать знак'), '×');
       remove.addEventListener('click', event => { event.stopPropagation(); removeSignal(index); });
       controls.append(remove);
       if (index > 0) {
-        const left = slotButton('сдвинуть влево', '←');
+        const left = slotButton(t('сдвинуть влево'), '←');
         left.addEventListener('click', event => { event.stopPropagation(); reorderSignal(index, index - 1); });
         controls.append(left);
       }
       if (index < state.signal.length - 1) {
-        const right = slotButton('сдвинуть вправо', '→');
+        const right = slotButton(t('сдвинуть вправо'), '→');
         right.addEventListener('click', event => { event.stopPropagation(); reorderSignal(index, index + 1); });
         controls.append(right);
       }
@@ -240,7 +244,7 @@
     });
     const result = root.querySelector('[data-signal-result]');
     if (result) {
-      result.textContent = state.signal.length ? `сигнал собран: ${state.signal.map(name => tokenNames[name] || name).join(' · ')}` : 'выберите знак, чтобы начать';
+      result.textContent = state.signal.length ? t('сигнал собран: {signs}', { signs: state.signal.map(name => t(tokenNames[name] || name)).join(' · ') }) : t('выберите знак, чтобы начать');
     }
     root.querySelectorAll('[data-signal-undo]').forEach(button => { button.disabled = !state.signal.length; });
   }
@@ -251,9 +255,9 @@
     return button;
   }
 
-  function addSignalToken(token, message = 'знак добавлен в сигнал') {
+  function addSignalToken(token, message = t('знак добавлен в сигнал')) {
     if (!tokenSet.has(token)) return false;
-    if (state.signal.length >= signalLimit) { announce('сигнал уже собран из четырёх знаков'); return false; }
+    if (state.signal.length >= signalLimit) { announce(t('сигнал уже собран из четырёх знаков')); return false; }
     const signal = state.signal.concat(token);
     lastAction = { type: 'signal', signal: signal.slice() };
     commitState({ ...state, signal }, message);
@@ -264,13 +268,13 @@
     if (index < 0 || index >= state.signal.length) return;
     const signal = state.signal.slice(); signal.splice(index, 1);
     lastAction = { type: 'signal', signal: signal.slice() };
-    commitState({ ...state, signal }, 'знак убран из сигнала');
+    commitState({ ...state, signal }, t('знак убран из сигнала'));
   }
   function reorderSignal(from, to) {
     if (from < 0 || to < 0 || from >= state.signal.length || to >= state.signal.length) return;
     const signal = state.signal.slice(); [signal[from], signal[to]] = [signal[to], signal[from]];
     lastAction = { type: 'signal', signal: signal.slice() };
-    commitState({ ...state, signal }, 'порядок сигнала изменён');
+    commitState({ ...state, signal }, t('порядок сигнала изменён'));
   }
 
   function renderLetter() {
@@ -292,10 +296,10 @@
       token.dataset.envelopeToken = draftNoteToken;
     }
     const note = root.querySelector('[data-envelope-note]');
-    if (note && !state.note) note.textContent = 'ваш текст\nпоявится здесь';
+    if (note && !state.note) note.textContent = t('ваш текст\nпоявится здесь');
     if (note && state.note) note.textContent = state.note;
     const result = root.querySelector('[data-letter-result]');
-    if (result) result.textContent = state.note ? 'записка сложена. скачайте открытку' : 'введите текст и выберите знак';
+    if (result) result.textContent = state.note ? t('записка сложена. скачайте открытку') : t('введите текст и выберите знак');
   }
 
   function renderPause() {
@@ -313,7 +317,7 @@
       else button.removeAttribute('aria-current');
     });
     const message = root.querySelector('[data-pause-message]');
-    if (message) message.textContent = pauseStep >= 4 ? 'готово: 4 шага' : ['нажмите первый шаг, чтобы начать', 'удерживайте кнопку', 'отпустите кнопку', 'побудьте ещё немного'][Math.min(pauseStep, 3)];
+    if (message) message.textContent = pauseStep >= 4 ? t('готово: 4 шага') : [t('нажмите первый шаг, чтобы начать'), t('удерживайте кнопку'), t('отпустите кнопку'), t('побудьте ещё немного')][Math.min(pauseStep, 3)];
   }
 
   function startPauseStep(event) {
@@ -324,7 +328,7 @@
     button.classList.add('is-holding');
     root.querySelector('[data-pause-stage]')?.classList.add('is-holding');
     if (event.pointerId != null && button.setPointerCapture) { try { button.setPointerCapture(event.pointerId); } catch (_) { /* unsupported */ } }
-    announce(`шаг ${step}: удерживайте кнопку`);
+    announce(t('шаг {step}: удерживайте кнопку', { step }));
   }
   function finishPauseStep(event) {
     const button = event.currentTarget;
@@ -336,36 +340,36 @@
     lastAction = { type: 'pause', step: pauseStep };
     renderPause();
     react('pause');
-    announce(pauseStep >= 4 ? 'готово: 4 шага' : `готово: шаг ${pauseStep} из 4`);
+    announce(pauseStep >= 4 ? t('готово: 4 шага') : t('готово: шаг {step} из 4', { step: pauseStep }));
     if (pauseStep < 4 && !isReducedMotion()) pauseDelayTimer = later(() => { pauseDelayTimer = null; renderPause(); }, 5000);
   }
   function skipPause() {
     pauseHolding = false; cancelTimer(pauseDelayTimer); pauseDelayTimer = null;
     pauseStep = Math.min(4, pauseStep + 1); lastAction = { type: 'pause', step: pauseStep }; renderPause();
-    announce(pauseStep >= 4 ? 'готово: 4 шага' : `шаг ${pauseStep} отмечен. следующий: ${pauseStep + 1}`);
+    announce(pauseStep >= 4 ? t('готово: 4 шага') : t('шаг {step} отмечен. следующий: {next}', { step: pauseStep, next: pauseStep + 1 }));
   }
   function restartPause(quiet = false) {
     pauseHolding = false; pauseStep = 0; cancelTimer(pauseDelayTimer); pauseDelayTimer = null; renderPause();
-    if (!quiet) announce('пауза сброшена. начните с первого шага');
+    if (!quiet) announce(t('пауза сброшена. начните с первого шага'));
   }
 
   function renderRhythm() {
     const count = root.querySelector('[data-rhythm-count]');
     if (count) count.textContent = `${state.rhythm.length} / ${rhythmLimit}`;
     const result = root.querySelector('[data-rhythm-result]');
-    if (result) result.textContent = state.rhythm.length ? state.rhythm.join(' · ') : 'нажмите клавиши от 1 до 4, чтобы записать ритм';
+    if (result) result.textContent = state.rhythm.length ? state.rhythm.join(' · ') : t('нажмите клавиши от 1 до 4, чтобы записать ритм');
   }
 
   function commitBeat(pad) {
     const value = Number(pad);
     if (!Number.isInteger(value) || value < 1 || value > 4) return false;
-    if (state.rhythm.length >= rhythmLimit) { announce('ритм уже собран из 32 ударов'); return false; }
+    if (state.rhythm.length >= rhythmLimit) { announce(t('ритм уже собран из 32 ударов')); return false; }
     const now = performance.now();
     const previous = rhythmEvents[rhythmEvents.length - 1];
     rhythmEvents.push({ pad: value, at: previous ? Math.max(previous.at + 16, now) : now });
     const rhythm = state.rhythm.concat(value);
     lastAction = { type: 'rhythm', events: rhythmEvents.map(item => ({ ...item })) };
-    commitState({ ...state, rhythm }, 'удар добавлен в ритм');
+    commitState({ ...state, rhythm }, t('удар добавлен в ритм'));
     pulsePad(value);
     react('rhythm');
     return true;
@@ -383,7 +387,7 @@
     }, isReducedMotion() ? 0 : 160);
   }
   function replayRhythm(events) {
-    if (!events || !events.length) { announce('нажмите клавиши от 1 до 4, чтобы записать ритм'); return; }
+    if (!events || !events.length) { announce(t('нажмите клавиши от 1 до 4, чтобы записать ритм')); return; }
     cancelSceneWork();
     const token = ++rhythmReplayToken;
     const origin = events[0].at;
@@ -391,7 +395,7 @@
       const delay = isReducedMotion() ? 0 : Math.max(0, Math.min(8000, event.at - origin));
       later(() => { if (token === rhythmReplayToken && activeMode === 'rhythm') pulsePad(event.pad); }, delay);
     });
-    announce('ритм повторяется в исходном темпе');
+    announce(t('ритм повторяется в исходном темпе'));
   }
 
   function react(mode) {
@@ -413,7 +417,7 @@
     event.preventDefault();
     state = State.normalizeState({ ...state, note: draftNote, noteToken: draftNoteToken });
     lastAction = { type: 'letter', note: draftNote, noteToken: draftNoteToken };
-    commitState(state, draftNote ? 'записка сложена. скачайте открытку' : 'пустая записка сложена');
+    commitState(state, draftNote ? t('записка сложена. скачайте открытку') : t('пустая записка сложена'));
     const envelope = root.querySelector('[data-envelope]');
     if (envelope) { envelope.classList.remove('is-folded'); void envelope.offsetWidth; envelope.classList.add('is-folded'); }
     react('letter');
@@ -452,7 +456,7 @@
     const current = drag; const stage = root.querySelector('[data-signal-stage]');
     const bounds = stage && stage.getBoundingClientRect();
     const inside = bounds && event.clientX >= bounds.left && event.clientX <= bounds.right && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
-    if (current.moved && inside) { event.preventDefault(); addSignalToken(current.token, 'знак добавлен перетаскиванием'); ignoreChoiceClickUntil = Date.now() + 450; }
+    if (current.moved && inside) { event.preventDefault(); addSignalToken(current.token, t('знак добавлен перетаскиванием')); ignoreChoiceClickUntil = Date.now() + 450; }
     else if (current.moved) ignoreChoiceClickUntil = Date.now() + 450;
     cancelDrag(button);
   }
@@ -476,8 +480,8 @@
     const url = `${location.origin === 'null' ? location.href.split('#')[0] : location.href.split('#')[0]}${hash}`;
     try {
       await copyText(url);
-      announce('ссылка скопирована. этот адрес откроет сигнал позже');
-    } catch (_) { announce('не удалось скопировать. скопируйте адрес из строки браузера'); }
+      announce(t('ссылка скопирована. этот адрес откроет сигнал позже'));
+    } catch (_) { announce(t('не удалось скопировать. скопируйте адрес из строки браузера')); }
   }
 
   function xmlEscape(value) {
@@ -561,27 +565,35 @@
     return `${svgImage(logoUri, 92, 48, 198, 52)}<circle cx="1090" cy="80" r="10" fill="${exportPalette.orange}"/><circle cx="1120" cy="80" r="6" fill="${exportPalette.blue}"/><text x="92" y="194" fill="${exportPalette.ink}" font-family="EF Dela, sans-serif" font-size="74" letter-spacing="-2">${xmlEscape(title)}</text>${svgImage(mascotUri, 1040, 118, 260, 268)}`;
   }
 
-  async function exportSvg() {
+  function captureExport() {
+    return { locale: Locale.getLanguage(), mode: activeMode, state: { ...state, signal: state.signal.slice(), rhythm: state.rhythm.slice() }, pauseStep };
+  }
+
+  async function exportSvg(snapshot = captureExport()) {
+    const activeMode = snapshot.mode;
+    const state = snapshot.state;
+    const pauseStep = snapshot.pauseStep;
+    const t = (message, values) => Locale.t(message, values, snapshot.locale);
     if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (_) { /* fonts are optional */ } }
-    const title = modeTitles[activeMode] || modeTitles.signal;
+    const title = t(modeTitles[activeMode] || modeTitles.signal);
     const tokenIds = activeMode === 'signal' && state.signal.length ? state.signal : [state.noteToken || state.signal[state.signal.length - 1] || 'pulse'];
     const [tokenUris, mascotUri, logoUri] = await Promise.all([Promise.resolve(tokenIds.map(name => glyphDataUri(name))), mascotDataUri(), fileDataUri('assets/favicons/signal-logo.svg', 'image/svg+xml')]);
-    const noteLines = wrapExportText(state.note || 'напишите записку в мастерской', 31, 6);
-    const signalLabels = state.signal.map(name => tokenNames[name] || name);
+    const noteLines = wrapExportText(state.note || t('напишите записку в мастерской'), 31, 6);
+    const signalLabels = state.signal.map(name => t(tokenNames[name] || name));
     let body = '';
     if (activeMode === 'signal') {
-      body = `<rect x="78" y="288" width="1244" height="425" rx="36" fill="${exportPalette.blue}"/><text x="112" y="336" fill="${exportPalette.paper}" opacity=".7" font-family="EF Onest, sans-serif" font-size="18" font-weight="700" letter-spacing="1">сигнал · ${state.signal.length}/4</text>${state.signal.length ? svgTokenRow(tokenUris, 380) : `<text x="112" y="500" fill="${exportPalette.paper}" opacity=".82" font-family="EF Onest, sans-serif" font-size="29">добавьте первый знак в мастерской</text>`}<text x="92" y="816" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="26" font-weight="700">${xmlEscape(signalLabels.length ? signalLabels.join('  ·  ') : 'сигнал пока пустой')}</text>`;
+      body = `<rect x="78" y="288" width="1244" height="425" rx="36" fill="${exportPalette.blue}"/><text x="112" y="336" fill="${exportPalette.paper}" opacity=".7" font-family="EF Onest, sans-serif" font-size="18" font-weight="700" letter-spacing="1">${t('сигнал')} · ${state.signal.length}/4</text>${state.signal.length ? svgTokenRow(tokenUris, 380) : `<text x="112" y="500" fill="${exportPalette.paper}" opacity=".82" font-family="EF Onest, sans-serif" font-size="29">${t("добавьте первый знак в мастерской")}</text>`}<text x="92" y="816" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="26" font-weight="700">${xmlEscape(signalLabels.length ? signalLabels.join('  ·  ') : t('сигнал пока пустой'))}</text>`;
     } else if (activeMode === 'letter') {
       const tokenUri = tokenUris[0];
-      body = `<rect x="78" y="288" width="1244" height="450" rx="36" fill="${exportPalette.orange}"/><rect x="116" y="340" width="622" height="326" rx="22" fill="${exportPalette.paper}" transform="rotate(-2 427 503)"/><text x="160" y="408" fill="${exportPalette.ink}" opacity=".55" font-family="EF Onest, sans-serif" font-size="16" font-weight="700" letter-spacing="1">записка</text><text x="160" y="466" fill="${exportPalette.ink}" font-family="EF Dela, sans-serif" font-size="34" letter-spacing="-.6">${svgLines(noteLines, 160, 466, 43)}</text>${svgImage(tokenUri, 630, 560, 72, 72)}<path d="M838 388h340l-170 142-170-142Z" fill="${exportPalette.paper}"/><path d="M838 388v280h340V388" fill="none" stroke="${exportPalette.ink}" stroke-opacity=".18" stroke-width="4"/><path d="M838 668l170-142 170 142" fill="none" stroke="${exportPalette.blue}" stroke-width="8" stroke-linejoin="round"/><text x="860" y="735" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="19" font-weight="700">записка сложена</text>`;
+      body = `<rect x="78" y="288" width="1244" height="450" rx="36" fill="${exportPalette.orange}"/><rect x="116" y="340" width="622" height="326" rx="22" fill="${exportPalette.paper}" transform="rotate(-2 427 503)"/><text x="160" y="408" fill="${exportPalette.ink}" opacity=".55" font-family="EF Onest, sans-serif" font-size="16" font-weight="700" letter-spacing="1">${t("записка")}</text><text x="160" y="466" fill="${exportPalette.ink}" font-family="EF Dela, sans-serif" font-size="34" letter-spacing="-.6">${svgLines(noteLines, 160, 466, 43)}</text>${svgImage(tokenUri, 630, 560, 72, 72)}<path d="M838 388h340l-170 142-170-142Z" fill="${exportPalette.paper}"/><path d="M838 388v280h340V388" fill="none" stroke="${exportPalette.ink}" stroke-opacity=".18" stroke-width="4"/><path d="M838 668l170-142 170 142" fill="none" stroke="${exportPalette.blue}" stroke-width="8" stroke-linejoin="round"/><text x="860" y="735" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="19" font-weight="700">${t("записка сложена")}</text>`;
     } else if (activeMode === 'pause') {
       const dots = Array.from({ length: 4 }, (_, index) => { const x = 150 + index * 270; const done = index < pauseStep; return `<circle cx="${x}" cy="480" r="76" fill="${done ? exportPalette.orange : exportPalette.paper}"/><text x="${x}" y="492" text-anchor="middle" fill="${exportPalette.ink}" font-family="EF Dela, sans-serif" font-size="38">0${index + 1}</text>`; }).join('');
-      body = `<rect x="78" y="288" width="1244" height="430" rx="36" fill="${exportPalette.ink}"/>${dots}<path d="M226 610H1034" stroke="${exportPalette.paper}" stroke-opacity=".28" stroke-width="3" stroke-dasharray="9 14"/><text x="112" y="784" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="28" font-weight="700">${pauseStep >= 4 ? 'готово: 4 шага' : `пройдено шагов: ${pauseStep} из 4`}</text>`;
+      body = `<rect x="78" y="288" width="1244" height="430" rx="36" fill="${exportPalette.ink}"/>${dots}<path d="M226 610H1034" stroke="${exportPalette.paper}" stroke-opacity=".28" stroke-width="3" stroke-dasharray="9 14"/><text x="112" y="784" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="28" font-weight="700">${pauseStep >= 4 ? t('готово: 4 шага') : t('пройдено шагов: {step} из 4', { step: pauseStep })}</text>`;
     } else {
-      const bars = state.rhythm.length ? state.rhythm.map((pad, index) => { const x = 112 + index * 34; const h = 56 + (pad * 18); const color = [exportPalette.orange, exportPalette.yellow, exportPalette.paper, exportPalette.softBlue][(pad - 1) % 4]; return `<rect x="${x}" y="${632 - h}" width="20" height="${h}" rx="8" fill="${color}"/>`; }).join('') : `<text x="112" y="500" fill="${exportPalette.paper}" opacity=".82" font-family="EF Onest, sans-serif" font-size="29">нажмите клавиши от 1 до 4, чтобы записать ритм</text>`;
-      body = `<rect x="78" y="288" width="1244" height="430" rx="36" fill="${exportPalette.blue}"/><text x="112" y="338" fill="${exportPalette.paper}" opacity=".72" font-family="EF Onest, sans-serif" font-size="18" font-weight="700" letter-spacing="1">ритм · ${state.rhythm.length}/32</text><line x1="112" y1="632" x2="1220" y2="632" stroke="${exportPalette.paper}" stroke-opacity=".25" stroke-width="3"/>${bars}<text x="92" y="816" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="26" font-weight="700">${xmlEscape(state.rhythm.length ? state.rhythm.join('  ·  ') : 'нажмите клавиши от 1 до 4, чтобы записать ритм')}</text>`;
+      const bars = state.rhythm.length ? state.rhythm.map((pad, index) => { const x = 112 + index * 34; const h = 56 + (pad * 18); const color = [exportPalette.orange, exportPalette.yellow, exportPalette.paper, exportPalette.softBlue][(pad - 1) % 4]; return `<rect x="${x}" y="${632 - h}" width="20" height="${h}" rx="8" fill="${color}"/>`; }).join('') : `<text x="112" y="500" fill="${exportPalette.paper}" opacity=".82" font-family="EF Onest, sans-serif" font-size="29">${t("нажмите клавиши от 1 до 4, чтобы записать ритм")}</text>`;
+      body = `<rect x="78" y="288" width="1244" height="430" rx="36" fill="${exportPalette.blue}"/><text x="112" y="338" fill="${exportPalette.paper}" opacity=".72" font-family="EF Onest, sans-serif" font-size="18" font-weight="700" letter-spacing="1">${t('ритм')} · ${state.rhythm.length}/32</text><line x1="112" y1="632" x2="1220" y2="632" stroke="${exportPalette.paper}" stroke-opacity=".25" stroke-width="3"/>${bars}<text x="92" y="816" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="26" font-weight="700">${xmlEscape(state.rhythm.length ? state.rhythm.join('  ·  ') : t('нажмите клавиши от 1 до 4, чтобы записать ритм'))}</text>`;
     }
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="export-title export-description"><title id="export-title">${xmlEscape(title)}</title><desc id="export-description">открытка из мастерской fondy</desc><rect width="1400" height="900" rx="48" fill="${exportPalette.paper}"/>${exportHeader(title, mascotUri, logoUri)}${body}<text x="92" y="862" fill="${exportPalette.ink}" opacity=".55" font-family="EF Onest, sans-serif" font-size="17">собрано в браузере · данные никуда не отправляются</text></svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="export-title export-description"><title id="export-title">${xmlEscape(title)}</title><desc id="export-description">${t("открытка из мастерской fondy")}</desc><rect width="1400" height="900" rx="48" fill="${exportPalette.paper}"/>${exportHeader(title, mascotUri, logoUri)}${body}<text x="92" y="862" fill="${exportPalette.ink}" opacity=".55" font-family="EF Onest, sans-serif" font-size="17">${t("собрано в браузере · данные никуда не отправляются")}</text></svg>`;
   }
   function downloadBlob(blob, filename) {
     const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = filename; link.rel = 'noopener';
@@ -589,45 +601,47 @@
   }
   async function exportPng() {
     const svg = await exportSvg();
-    if (!document.createElement('canvas').getContext) { downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), 'signal-postcard.svg'); announce('png недоступен, сохранён svg'); return; }
+    if (!document.createElement('canvas').getContext) { downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), 'signal-postcard.svg'); announce(t('png недоступен, сохранён svg')); return; }
     const canvas = document.createElement('canvas'); canvas.width = 1400; canvas.height = 900;
     const context = canvas.getContext('2d');
-    if (!context) { downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), 'signal-postcard.svg'); announce('png недоступен, сохранён svg'); return; }
+    if (!context) { downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), 'signal-postcard.svg'); announce(t('png недоступен, сохранён svg')); return; }
     const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }));
     try {
       const image = new Image(); image.decoding = 'async'; image.src = url;
       if (image.decode) { try { await image.decode(); } catch (_) { await new Promise(resolve => { image.onload = resolve; image.onerror = resolve; }); } }
       context.drawImage(image, 0, 0, 1400, 900);
       const blob = await new Promise(resolve => canvas.toBlob ? canvas.toBlob(resolve, 'image/png') : resolve(null));
-      if (!blob) { downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), 'signal-postcard.svg'); announce('png недоступен, сохранён svg'); return; }
-      downloadBlob(blob, 'signal-postcard.png'); announce('png готов, файл сохранён');
+      if (!blob) { downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), 'signal-postcard.svg'); announce(t('png недоступен, сохранён svg')); return; }
+      downloadBlob(blob, 'signal-postcard.png'); announce(t('png готов, файл сохранён'));
     } finally { URL.revokeObjectURL(url); }
   }
 
   async function createPortableHtml() {
+    const snapshot = captureExport();
+    const t = (message, values) => Locale.t(message, values, snapshot.locale);
     const [svg, delaUri, onestUri] = await Promise.all([
-      exportSvg(),
+      exportSvg(snapshot),
       fileDataUri('assets/fonts/dela-gothic-one.woff2', 'font/woff2'),
       fileDataUri('assets/fonts/onest-variable.woff2', 'font/woff2'),
     ]);
-    const title = modeTitles[activeMode] || modeTitles.signal;
+    const title = t(modeTitles[snapshot.mode] || modeTitles.signal);
     const style = `@font-face{font-family:'EF Dela';src:url('${delaUri}') format('woff2');font-display:swap}@font-face{font-family:'EF Onest';src:url('${onestUri}') format('woff2');font-display:swap}html,body{margin:0;min-height:100%;background:#efe5d3}body{display:grid;place-items:center;padding:32px;box-sizing:border-box;font-family:'EF Onest',sans-serif}.postcard{width:min(1400px,100%);margin:auto}.postcard svg{display:block;width:100%;height:auto;box-shadow:0 24px 80px rgba(23,23,23,.16);border-radius:28px}.postcard p{margin:18px 0 0;color:#5c554c;text-align:center;font-size:14px}.postcard strong{color:#171717}`;
-    return `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${xmlEscape(title)} · fondy</title><style>${style}</style></head><body><main class="postcard" aria-label="открытка из мастерской fondy">${svg}<p><strong>${xmlEscape(title)}</strong> · открытка собрана локально в браузере</p></main></body></html>`;
+    return `<!doctype html><html lang="${snapshot.locale}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${xmlEscape(title)} · fondy</title><style>${style}</style></head><body><main class="postcard" aria-label="${t('открытка из мастерской fondy')}">${svg}<p><strong>${xmlEscape(title)}</strong> · ${t('открытка собрана локально в браузере')}</p></main></body></html>`;
   }
   async function downloadPortable() {
-    try { downloadBlob(new Blob([await createPortableHtml()], { type: 'text/html;charset=utf-8' }), 'signal-postcard.html'); announce('открытка сохранена. её можно открыть отдельно'); } catch (_) { announce('не удалось собрать открытку'); }
+    try { downloadBlob(new Blob([await createPortableHtml()], { type: 'text/html;charset=utf-8' }), 'signal-postcard.html'); announce(t('открытка сохранена. её можно открыть отдельно')); } catch (_) { announce(t('не удалось собрать открытку')); }
   }
 
   function resetCurrentScene() {
     cancelSceneWork();
-    if (activeMode === 'signal') { commitState({ ...state, signal: [] }, 'сигнал сброшен. соберите заново'); }
-    else if (activeMode === 'letter') { draftNote = ''; draftNoteToken = 'pulse'; commitState({ ...state, note: '', noteToken: 'pulse' }, 'записка сброшена. напишите новую'); }
-    else if (activeMode === 'pause') { restartPause(true); announce('пауза сброшена. начните с первого шага'); }
-    else if (activeMode === 'rhythm') { rhythmEvents = []; commitState({ ...state, rhythm: [] }, 'ритм сброшен. сыграйте заново'); }
+    if (activeMode === 'signal') { commitState({ ...state, signal: [] }, t('сигнал сброшен. соберите заново')); }
+    else if (activeMode === 'letter') { draftNote = ''; draftNoteToken = 'pulse'; commitState({ ...state, note: '', noteToken: 'pulse' }, t('записка сброшена. напишите новую')); }
+    else if (activeMode === 'pause') { restartPause(true); announce(t('пауза сброшена. начните с первого шага')); }
+    else if (activeMode === 'rhythm') { rhythmEvents = []; commitState({ ...state, rhythm: [] }, t('ритм сброшен. сыграйте заново')); }
   }
   function repeatCurrent() {
-    if (activeMode === 'signal') { if (!state.signal.length) { announce('добавьте первый знак'); return; } react('signal'); announce('сигнал повторяется'); }
-    else if (activeMode === 'letter') { if (!state.note) { announce('напишите и сложите записку'); return; } const envelope = root.querySelector('[data-envelope]'); if (envelope) envelope.classList.toggle('is-folded'); react('letter'); announce(envelope?.classList.contains('is-folded') ? 'записка сложена' : 'конверт открыт'); }
+    if (activeMode === 'signal') { if (!state.signal.length) { announce(t('добавьте первый знак')); return; } react('signal'); announce(t('сигнал повторяется')); }
+    else if (activeMode === 'letter') { if (!state.note) { announce(t('напишите и сложите записку')); return; } const envelope = root.querySelector('[data-envelope]'); if (envelope) envelope.classList.toggle('is-folded'); react('letter'); announce(envelope?.classList.contains('is-folded') ? t('записка сложена') : t('конверт открыт')); }
     else if (activeMode === 'pause') { restartPause(); }
     else if (activeMode === 'rhythm') replayRhythm((lastAction && lastAction.type === 'rhythm' ? lastAction.events : rhythmEvents).slice());
   }
@@ -677,7 +691,7 @@
     if (action === 'reset') button.addEventListener('click', resetCurrentScene);
     if (action === 'repeat') button.addEventListener('click', repeatCurrent);
     if (action === 'copy') button.addEventListener('click', copyLink);
-    if (action === 'export') button.addEventListener('click', () => exportPng().catch(() => announce('не удалось сохранить png')));
+    if (action === 'export') button.addEventListener('click', () => exportPng().catch(() => announce(t('не удалось сохранить png'))));
     if (action === 'portable') button.addEventListener('click', () => downloadPortable());
   });
 
@@ -713,7 +727,9 @@
   root.querySelectorAll('[data-workshop-navigation]').forEach(nav => { if (!nav.getAttribute('role')) nav.setAttribute('role', 'tablist'); });
   setupPointerAndIdle();
   renderState();
-  if (location.hash && State.decodeStateHashResult && !State.decodeStateHashResult(location.hash).valid) announce('ссылка устарела или повреждена');
+  if (location.hash && State.decodeStateHashResult && !State.decodeStateHashResult(location.hash).valid) announce(t('ссылка устарела или повреждена'));
+
+  window.addEventListener('signal:languagechange', () => { renderState(); announce(companionPrompts[activeMode]); });
 
   window.__signalWorkshop = window.__signalWorkshop || { root, getState: () => ({ ...state, signal: state.signal.slice(), rhythm: state.rhythm.slice() }), setMode, reset: resetCurrentScene, repeat: repeatCurrent, encodeState: () => State.encodeState(state) };
 })();

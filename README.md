@@ -1,78 +1,84 @@
 # signal
 
-небольшая мастерская со знаками, записками, паузой и ритмом. соберите свой сигнал, сохраните открытку или передайте её по ссылке. fondy побудет рядом и отреагирует на ваши действия.
+**english** · [русский](README.ru.md)
 
-[открыть мастерскую](https://chebaturkin.github.io/fondy-signal/)
+a small workshop for signs, notes, pauses and rhythm. make a signal, save a card or share it through a link. fondy stays nearby and responds to what you do.
 
-![мастерская signal: четыре знака и fondy рядом](docs/signal-preview.png)
+[open the workshop](https://chebaturkin.github.io/fondy-signal/?lang=en)
 
-всё работает в браузере. без аккаунта, сервера и аналитики.
+![signal: four signs and fondy keeping you company](docs/en/signal-preview.png)
 
-## чем можно заняться
+everything works in your browser, without an account, server or analytics.
+
+## things to try
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-### знаки
+### signs
 
-<img src="docs/signal-gallery-signal.png" alt="четыре знака: пульс, искра, волна и якорь на синей поверхности" width="100%">
+<img src="docs/en/signal-gallery-signal.png" alt="pulse, spark, wave and anchor on a blue surface" width="100%">
 
-выберите до четырёх знаков и расставьте их по-своему. можно нажимать, перетаскивать и убирать лишнее.
+choose up to four signs and arrange them your way. click, drag and remove the ones you no longer need.
 
 </td>
 <td width="50%" valign="top">
 
-### пауза
+### pause
 
-<img src="docs/signal-gallery-pause.png" alt="круг и четыре шага паузы" width="100%">
+<img src="docs/en/signal-gallery-pause.png" alt="a circle and four steps for taking a pause" width="100%">
 
-четыре шага помогают ненадолго остановиться. любой из них можно пропустить или начать паузу заново.
+four steps give you a moment to stop. skip any step or begin again whenever you like.
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-### записка
+### note
 
-<img src="docs/signal-gallery-letter.png" alt="записка с текстом «я рядом. можно без слов.» и конверт" width="100%">
+<img src="docs/en/signal-gallery-letter.png" alt="a note saying I'm here, words are optional, beside an envelope" width="100%">
 
-напишите до 120 знаков, выберите символ и сверните записку в конверт. потом её можно скачать как открытку.
+write up to 120 characters, choose a sign and fold the note into an envelope. you can then download it as a card.
 
 </td>
 <td width="50%" valign="top">
 
-### ритм
+### rhythm
 
-<img src="docs/signal-gallery-rhythm.png" alt="четыре клавиши и последовательность из восьми ударов" width="100%">
+<img src="docs/en/signal-gallery-rhythm.png" alt="four rhythm pads and a sequence of eight beats" width="100%">
 
-нажимайте кнопки или клавиши от 1 до 4. в последовательности помещается до 32 ударов.
+tap the pads or press keys 1 to 4. a sequence holds up to 32 beats.
 
 </td>
 </tr>
 </table>
 
 <details>
-<summary>а так она выглядит на телефоне</summary>
+<summary>on a phone</summary>
 
-<img src="docs/signal-mobile.png" alt="signal на телефоне, fondy остаётся над сценами при прокрутке" width="320">
+<img src="docs/en/signal-mobile.png" alt="signal on a phone, with fondy above the scenes" width="320">
 
-сцены и кнопки подстраиваются под экран. управление с клавиатуры и режим уменьшенного движения тоже есть.
+scenes and controls adapt to the screen. keyboard controls and reduced motion are supported.
 
 </details>
 
-## сохранить и передать
+## save and share
 
-скопируйте ссылку, чтобы вернуться к результату или показать его кому-нибудь. состояние хранится в части адреса после `#`. текст записки тоже входит в ссылку: получатель сможет его прочитать.
+copy the link to return to your result or show it to someone. state is stored in the part of the address after `#`. the note text is part of that link, so anyone who receives it can read it.
 
-результат можно скачать как png или как отдельную html-открытку. открытка открывается без подключения к мастерской.
+download the result as a png or a self-contained html card. the html card opens without the workshop. fonts and illustrations ship with the project; the workshop does not need external apis.
 
-шрифты и иллюстрации хранятся рядом с кодом. для работы не нужны внешние api.
+## language
 
-## запустить локально
+the workshop and exported card labels support english and russian. the first visit follows your browser language, with english as the fallback. use the small `ru / en` control beside the github link to choose a language; the browser remembers it. `?lang=en` and `?lang=ru` open a language directly.
 
-нужен python 3.11+. для проверок понадобится node.js 20+.
+switching keeps your signs, rhythm, pause progress and unfinished note. your own words stay as you wrote them.
+
+## run locally
+
+use python 3.11 or newer. checks also need node.js 20 or newer.
 
 ```bash
 git clone https://github.com/chebaturkin/fondy-signal.git
@@ -81,43 +87,47 @@ python3 site/build.py
 python3 site/serve.py --port 8799
 ```
 
-откройте [мастерскую в браузере](http://127.0.0.1:8799/). сборка создаёт статическую папку `site/public`, которую можно разместить на хостинге. пути к ресурсам относительные, поэтому страница работает и из подпапки.
+open the [local workshop](http://127.0.0.1:8799/?lang=en). the build creates `site/public`, ready for static hosting. relative asset paths also work from a subdirectory.
 
-## как устроен проект
+## source
 
-| путь | что здесь |
+| path | contents |
 | --- | --- |
-| [`site/sections`](site/sections) | разметка, оформление и действия сцен |
-| [`site/lib/workshop-state.js`](site/lib/workshop-state.js) | проверка состояния и его кодирование в адрес |
-| [`site/base.css`](site/base.css) | общие шрифты и визуальные настройки |
-| [`site/build.py`](site/build.py) | сборка страницы и локальных ресурсов |
-| [`site/serve.py`](site/serve.py) | сервер для локального просмотра |
-| [`brand-kit/assets/mascot`](brand-kit/assets/mascot) | исходник fondy |
-| [`brand-kit/assets/favicons`](brand-kit/assets/favicons) | логотип signal и фавикон |
-| [`brand-kit/fonts`](brand-kit/fonts) | шрифты и их лицензии |
+| [`site/sections`](site/sections) | scene markup, styling and interactions |
+| [`site/lib/workshop-state.js`](site/lib/workshop-state.js) | state validation and link encoding |
+| [`site/lib/messages.json`](site/lib/messages.json) | authored russian and english messages |
+| [`site/lib/i18n.js`](site/lib/i18n.js) | language selection and explicit text bindings |
+| [`site/base.css`](site/base.css) | shared fonts and visual settings |
+| [`site/build.py`](site/build.py) | static page and local asset builder |
+| [`site/serve.py`](site/serve.py) | local preview server |
+| [`brand-kit/assets/mascot`](brand-kit/assets/mascot) | fondy source |
+| [`brand-kit/assets/favicons`](brand-kit/assets/favicons) | signal logo and favicon |
+| [`brand-kit/fonts`](brand-kit/fonts) | fonts and their licenses |
 
-`site/assets`, `site/index.html` и `site/public` создаются сборкой. меняйте исходники и запускайте `site/build.py`, чтобы обновить страницу.
+`site/assets`, `site/index.html` and `site/public` are generated. edit the sources and run `site/build.py` to update them.
 
-подробнее: [мастерская](site/README.md) · [визуальные материалы](brand-kit/README.md). скриншоты и галерея пересобираются командой `python3 docs/render_github.py` после запуска локального сервера.
+more details: [workshop](site/README.md) · [visual assets](brand-kit/README.md). after starting the local server, run `python3 docs/render_github.py` to capture both languages from the working workshop.
 
-## проверить изменения
+## checks
 
 ```bash
 python3 site/build.py
 python3 -m pytest -q site/tests
-node --test site/tests/test_workshop_state.mjs site/tests/test_workshop_contract.mjs
+node --test site/tests/*.mjs
+python3 site/verify.py
+python3 site/verify_languages.py
 ```
 
-для браузерной проверки нужен пакет playwright и его chromium. после запуска локального сервера выполните `python3 site/verify.py`. проверка проходит по пяти размерам экрана, сценам, клавиатуре, положению fondy при прокрутке и экспорту.
+browser checks need python playwright and its chromium, with the local server running. they cover all scenes, keyboard controls, five screen widths, fondy's position while scrolling, reduced motion and exports. language checks also cover unfinished notes, shared state, saved preferences, portable cards and blocked browser storage.
 
-## публикация
+## publishing
 
-изменения в `main` собираются и публикуются на github pages через [workflow](.github/workflows/pages.yml). сборка использует только файлы проекта.
+changes in `main` are built and published to github pages through the [workflow](.github/workflows/pages.yml). the build uses only project files.
 
-## авторство и лицензии
+## authorship and licenses
 
-код, персонаж, иллюстрации и тексты signal принадлежат Тимофею Чебатуркину. отдельная лицензия на переиспользование пока не выбрана. для использования материалов в другом проекте нужно разрешение автора.
+the code, character, illustrations and text belong to Timofey Chebaturkin. a reuse license has not been selected. please ask the author before using these materials in another project.
 
-dela gothic one и onest распространяются по sil open font license. копии лицензий находятся в [`brand-kit/fonts`](brand-kit/fonts).
+dela gothic one and onest use the sil open font license. copies are included in [`brand-kit/fonts`](brand-kit/fonts).
 
-[Тимофей Чебатуркин](https://chebaturkin.com) · signal
+[Timofey Chebaturkin](https://chebaturkin.com) · signal

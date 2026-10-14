@@ -248,3 +248,13 @@ a:focus-visible, button:focus-visible, textarea:focus-visible, [role=tabpanel]:f
   .workshop-mascot, .workshop-mascot-wrap.is-reacting .workshop-mascot, .workshop-scene, .signal-slot-glyph, .rhythm-bars i.is-hit { animation: none; }
   .pause-breath span, .envelope, .envelope-flap, .envelope-token { transition: none; }
 }
+
+/* Language is a quiet part of the existing navigation. */
+.workshop-header-nav { display: flex; align-items: center; gap: 24px; }
+.language-switch { display: inline-flex; align-items: center; gap: 1px; color: var(--muted); }
+.language-switch button { min-width: 29px; min-height: 36px; padding: 0 4px; border: 0; border-radius: 0; background: none; color: inherit; font: 400 13px var(--body); cursor: pointer; }
+.language-switch > span { opacity: .4; font-size: 12px; }
+.language-switch button[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.language-switch button:hover { color: var(--blue); }
+@media (max-width: 600px) { .workshop-header-nav { gap: 12px; } .language-switch button { min-height: 44px; min-width: 27px; } }
+@media (max-width: 360px) { .workshop-header { gap: 12px; } .workshop-home { width: 122px; } .workshop-header-nav { gap: 8px; } }

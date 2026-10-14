@@ -9,6 +9,8 @@ pack export, reaches outside this repository, or talks to the network.
 from __future__ import annotations
 
 import shutil
+import json
+import html
 from pathlib import Path
 
 
@@ -25,6 +27,8 @@ WORKSHOP_FILES = {
     "css": ROOT / "sections" / "workshop.css",
     "js": ROOT / "sections" / "workshop.js",
     "state": ROOT / "lib" / "workshop-state.js",
+    "i18n": ROOT / "lib" / "i18n.js",
+    "messages": ROOT / "lib" / "messages.json",
 }
 
 
@@ -74,14 +78,19 @@ def prepare_assets() -> Path:
 def page(title: str, description: str, content: str) -> str:
     """Wrap the authored Signal fragment in a portable HTML document."""
 
+    messages = json.loads(read_text(WORKSHOP_FILES["messages"]))
+    english_title = messages.get(title, title)
+    english_description = messages.get(description, description)
+    title_binding = html.escape(json.dumps([title], ensure_ascii=False), quote=True)
+    description_binding = html.escape(description, quote=True)
     return f'''<!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#2457FF">
-  <meta name="description" content="{description}">
-  <title>{title}</title>
+  <meta name="description" content="{english_description}" data-i18n-content="{description_binding}">
+  <title data-i18n-parts="{title_binding}">{english_title}</title>
   <link rel="icon" href="assets/favicons/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/dela-gothic-one.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/onest-variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -101,7 +110,8 @@ def main() -> None:
     assets = prepare_assets()
     styles = read_text(ROOT / "base.css") + "\n" + read_text(WORKSHOP_FILES["css"])
     # The pure state helper must load before the browser runtime.
-    scripts = read_text(WORKSHOP_FILES["state"]) + "\n" + read_text(WORKSHOP_FILES["js"])
+    messages = read_text(WORKSHOP_FILES["messages"])
+    scripts = read_text(WORKSHOP_FILES["state"]) + "\nwindow.SignalMessages = " + messages + ";\n" + read_text(WORKSHOP_FILES["i18n"]) + "\n" + read_text(WORKSHOP_FILES["js"])
     (assets / "site.css").write_text(styles, encoding="utf-8")
     (assets / "site.js").write_text(scripts, encoding="utf-8")
 

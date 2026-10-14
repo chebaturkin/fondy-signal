@@ -1,134 +1,137 @@
-<a class="page-skip" href="#main">к содержимому</a>
+<a class="page-skip" href="#main" data-i18n-parts="[&quot;к содержимому&quot;]">skip to content</a>
 <header class="workshop-header" data-workshop-header>
-  <a class="workshop-home" href="./" aria-label="signal, главная"><img src="assets/favicons/signal-logo.svg" alt="signal" width="198" height="52"></a>
+  <a class="workshop-home" href="./" aria-label="signal, home" data-i18n-aria-label="signal, главная"><img src="assets/favicons/signal-logo.svg" alt="signal" width="198" height="52"></a>
+  <nav class="workshop-header-nav" aria-label="language / язык, github" data-i18n-aria-label="language / язык, github">
+  <div class="language-switch" role="group" aria-label="language / язык" data-i18n-aria-label="language / язык"><button type="button" data-language="ru" lang="ru" aria-label="переключить на русский" aria-pressed="false" data-i18n-aria-label="переключить на русский">ru</button><span aria-hidden="true">/</span><button type="button" data-language="en" lang="en" aria-label="switch to english" aria-pressed="true">en</button></div>
   <a class="workshop-header-link" href="https://github.com/chebaturkin/fondy-signal" target="_blank" rel="noopener noreferrer">github <span aria-hidden="true">↗</span></a>
+  </nav>
 </header>
 
 <main id="main" class="fondy-workshop" data-workshop-root tabindex="-1">
   <section class="workshop-hero" aria-labelledby="workshop-title">
-    <h1 id="workshop-title">передать<br><em>сигнал.</em></h1>
-    <p class="workshop-lede">соберите несколько знаков, оставьте записку или просто сделайте паузу. fondy побудет рядом.</p>
-    <a class="workshop-start" href="#workshop-desk">попробовать <span aria-hidden="true">↓</span></a>
+    <h1 id="workshop-title" data-i18n-parts="[&quot;передать&quot;]">send a<br><em data-i18n-parts="[&quot;сигнал.&quot;]">signal.</em></h1>
+    <p class="workshop-lede" data-i18n-parts="[&quot;соберите несколько знаков, оставьте записку или просто сделайте паузу. fondy побудет рядом.&quot;]">put a few signs together, leave a note or take a pause. fondy will keep you company.</p>
+    <a class="workshop-start" href="#workshop-desk" data-i18n-parts="[&quot;попробовать &quot;]">give it a try <span aria-hidden="true">↓</span></a>
   </section>
 
-  <aside class="workshop-companion" aria-label="fondy рядом">
+  <aside class="workshop-companion" aria-label="fondy is here" data-i18n-aria-label="fondy рядом">
     <figure class="workshop-mascot-wrap" data-fondy-wrap>
       <div class="workshop-mascot-stage" data-fondy-stage>
         <svg class="fondy-signal-lines" viewBox="0 0 320 320" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="m35 103-13-6m23-14-7-15M274 86l12-10m-2 28 19-2"/></g></svg>
-        <img class="workshop-mascot" data-fondy-mascot src="assets/mascot/fondy-greeting-color-light.svg" alt="fondy машет вам" width="375" height="385" fetchpriority="high">
+        <img class="workshop-mascot" data-fondy-mascot src="assets/mascot/fondy-greeting-color-light.svg" alt="fondy waves hello" width="375" height="385" fetchpriority="high" data-i18n-alt="fondy машет вам">
       </div>
-      <figcaption class="fondy-caption"><span class="fondy-name">fondy рядом</span><span class="fondy-message" data-fondy-message>начнём со знака? выберите любой.</span></figcaption>
+      <figcaption class="fondy-caption"><span class="fondy-name" data-i18n-parts="[&quot;fondy рядом&quot;]">fondy is here</span><span class="fondy-message" data-fondy-message data-i18n-parts="[&quot;начнём со знака? выберите любой.&quot;]">shall we start with a sign? choose any one.</span></figcaption>
     </figure>
   </aside>
 
   <div class="workshop-desk" id="workshop-desk">
-  <nav class="workshop-scenes-nav" aria-label="чем займёмся" data-workshop-navigation role="tablist">
-    <button class="scene-tab is-active" type="button" role="tab" id="tab-signal" data-workshop-mode="signal" aria-controls="workshop-signal" aria-selected="true" tabindex="0"><strong>знаки</strong></button>
-    <button class="scene-tab" type="button" role="tab" id="tab-pause" data-workshop-mode="pause" aria-controls="workshop-pause" aria-selected="false" tabindex="-1"><strong>пауза</strong></button>
-    <button class="scene-tab" type="button" role="tab" id="tab-letter" data-workshop-mode="letter" aria-controls="workshop-letter" aria-selected="false" tabindex="-1"><strong>записка</strong></button>
-    <button class="scene-tab" type="button" role="tab" id="tab-rhythm" data-workshop-mode="rhythm" aria-controls="workshop-rhythm" aria-selected="false" tabindex="-1"><strong>ритм</strong></button>
+  <nav class="workshop-scenes-nav" aria-label="what shall we do" data-workshop-navigation role="tablist" data-i18n-aria-label="чем займёмся">
+    <button class="scene-tab is-active" type="button" role="tab" id="tab-signal" data-workshop-mode="signal" aria-controls="workshop-signal" aria-selected="true" tabindex="0"><strong data-i18n-parts="[&quot;знаки&quot;]">signs</strong></button>
+    <button class="scene-tab" type="button" role="tab" id="tab-pause" data-workshop-mode="pause" aria-controls="workshop-pause" aria-selected="false" tabindex="-1"><strong data-i18n-parts="[&quot;пауза&quot;]">pause</strong></button>
+    <button class="scene-tab" type="button" role="tab" id="tab-letter" data-workshop-mode="letter" aria-controls="workshop-letter" aria-selected="false" tabindex="-1"><strong data-i18n-parts="[&quot;записка&quot;]">note</strong></button>
+    <button class="scene-tab" type="button" role="tab" id="tab-rhythm" data-workshop-mode="rhythm" aria-controls="workshop-rhythm" aria-selected="false" tabindex="-1"><strong data-i18n-parts="[&quot;ритм&quot;]">rhythm</strong></button>
   </nav>
 
-  <p class="workshop-status visually-hidden" id="workshop-status" data-workshop-status role="status" aria-live="polite" aria-atomic="true">добавьте первый знак</p>
+  <p class="workshop-status visually-hidden" id="workshop-status" data-workshop-status role="status" aria-live="polite" aria-atomic="true" data-i18n-parts="[&quot;добавьте первый знак&quot;]">add your first sign</p>
 
   <section class="workshop-scene is-active" id="workshop-signal" data-workshop-scene="signal" role="tabpanel" tabindex="0" aria-labelledby="tab-signal signal-title">
     <div class="scene-heading">
-      <h2 id="signal-title">собрать сигнал</h2>
-      <p>нажмите на знак. можно добавить четыре и менять их местами</p>
+      <h2 id="signal-title" data-i18n-parts="[&quot;собрать сигнал&quot;]">make a signal</h2>
+      <p data-i18n-parts="[&quot;нажмите на знак. можно добавить четыре и менять их местами&quot;]">choose up to four signs. you can rearrange them</p>
     </div>
     <div class="signal-layout">
       <div class="token-palette" data-signal-palette role="group" aria-labelledby="signal-palette-title">
-        <h3 class="visually-hidden" id="signal-palette-title">выберите знак</h3>
-        <p class="visually-hidden" id="signal-choice-help">нажмите на знак или перетащите его в свободное место</p>
+        <h3 class="visually-hidden" id="signal-palette-title" data-i18n-parts="[&quot;выберите знак&quot;]">choose a sign</h3>
+        <p class="visually-hidden" id="signal-choice-help" data-i18n-parts="[&quot;нажмите на знак или перетащите его в свободное место&quot;]">choose a sign or drag it into an empty space</p>
         <div class="token-options">
-        <button class="token-choice" type="button" draggable="true" data-token="pulse" aria-label="добавить знак пульс" aria-describedby="signal-choice-help"><span class="token-choice-art token-art-pulse" aria-hidden="true"></span><span class="token-choice-copy"><strong>пульс</strong></span></button>
-        <button class="token-choice" type="button" draggable="true" data-token="spark" aria-label="добавить знак искра" aria-describedby="signal-choice-help"><span class="token-choice-art token-art-spark" aria-hidden="true"></span><span class="token-choice-copy"><strong>искра</strong></span></button>
-        <button class="token-choice" type="button" draggable="true" data-token="wave" aria-label="добавить знак волна" aria-describedby="signal-choice-help"><span class="token-choice-art token-art-wave" aria-hidden="true"></span><span class="token-choice-copy"><strong>волна</strong></span></button>
-        <button class="token-choice" type="button" draggable="true" data-token="anchor" aria-label="добавить знак якорь" aria-describedby="signal-choice-help"><span class="token-choice-art token-art-anchor" aria-hidden="true"></span><span class="token-choice-copy"><strong>якорь</strong></span></button>
+        <button class="token-choice" type="button" draggable="true" data-token="pulse" aria-label="add pulse" aria-describedby="signal-choice-help" data-i18n-aria-label="добавить знак пульс"><span class="token-choice-art token-art-pulse" aria-hidden="true"></span><span class="token-choice-copy"><strong data-i18n-parts="[&quot;пульс&quot;]">pulse</strong></span></button>
+        <button class="token-choice" type="button" draggable="true" data-token="spark" aria-label="add spark" aria-describedby="signal-choice-help" data-i18n-aria-label="добавить знак искра"><span class="token-choice-art token-art-spark" aria-hidden="true"></span><span class="token-choice-copy"><strong data-i18n-parts="[&quot;искра&quot;]">spark</strong></span></button>
+        <button class="token-choice" type="button" draggable="true" data-token="wave" aria-label="add wave" aria-describedby="signal-choice-help" data-i18n-aria-label="добавить знак волна"><span class="token-choice-art token-art-wave" aria-hidden="true"></span><span class="token-choice-copy"><strong data-i18n-parts="[&quot;волна&quot;]">wave</strong></span></button>
+        <button class="token-choice" type="button" draggable="true" data-token="anchor" aria-label="add anchor" aria-describedby="signal-choice-help" data-i18n-aria-label="добавить знак якорь"><span class="token-choice-art token-art-anchor" aria-hidden="true"></span><span class="token-choice-copy"><strong data-i18n-parts="[&quot;якорь&quot;]">anchor</strong></span></button>
         </div>
       </div>
-      <div class="signal-stage" data-signal-stage role="group" aria-label="ваш сигнал" aria-describedby="signal-help">
-        <div class="signal-stage-top"><span>ваш сигнал</span><span data-signal-count>0 / 4</span></div>
+      <div class="signal-stage" data-signal-stage role="group" aria-label="your signal" aria-describedby="signal-help" data-i18n-aria-label="ваш сигнал">
+        <div class="signal-stage-top"><span data-i18n-parts="[&quot;ваш сигнал&quot;]">your signal</span><span data-signal-count>0 / 4</span></div>
         <div class="signal-slots" data-signal-slots>
           <span class="signal-slot" data-signal-slot="0"><span aria-hidden="true">+</span></span>
           <span class="signal-slot" data-signal-slot="1"><span aria-hidden="true">+</span></span>
           <span class="signal-slot" data-signal-slot="2"><span aria-hidden="true">+</span></span>
           <span class="signal-slot" data-signal-slot="3"><span aria-hidden="true">+</span></span>
         </div>
-        <div class="signal-stage-bottom"><p class="signal-stage-hint" id="signal-help">знаки можно менять местами</p>
-        <button class="signal-undo" type="button" data-signal-undo aria-label="убрать последний знак из сигнала" disabled>убрать последний <span aria-hidden="true">↶</span></button></div>
+        <div class="signal-stage-bottom"><p class="signal-stage-hint" id="signal-help" data-i18n-parts="[&quot;знаки можно менять местами&quot;]">you can rearrange the signs</p>
+        <button class="signal-undo" type="button" data-signal-undo aria-label="remove the last sign from your signal" disabled data-i18n-parts="[&quot;убрать последний &quot;]" data-i18n-aria-label="убрать последний знак из сигнала">undo last sign <span aria-hidden="true">↶</span></button></div>
       </div>
     </div>
-    <p class="scene-result" data-signal-result>выберите знак, чтобы начать</p>
+    <p class="scene-result" data-signal-result data-i18n-parts="[&quot;выберите знак, чтобы начать&quot;]">choose a sign to begin</p>
   </section>
 
   <section class="workshop-scene" id="workshop-pause" data-workshop-scene="pause" role="tabpanel" tabindex="0" aria-labelledby="tab-pause pause-title" hidden>
     <div class="scene-heading">
-      <h2 id="pause-title">поймать паузу</h2>
-      <p>нажмите, немного подержите и отпустите. можно никуда не спешить</p>
+      <h2 id="pause-title" data-i18n-parts="[&quot;поймать паузу&quot;]">take a pause</h2>
+      <p data-i18n-parts="[&quot;нажмите, немного подержите и отпустите. можно никуда не спешить&quot;]">press, hold for a moment, then release. take your time</p>
     </div>
     <div class="pause-layout">
-      <div class="pause-stage" data-pause-stage><div class="pause-breath" aria-hidden="true"><span></span></div><p data-pause-message>нажмите первый шаг, чтобы начать</p></div>
-      <div class="pause-steps" role="group" aria-label="шаги паузы" data-pause-steps>
-        <button class="pause-step is-current" type="button" data-pause-step="1" aria-pressed="false"><span aria-hidden="true">·</span><strong>заметить</strong><small>нажмите</small></button>
-        <button class="pause-step" type="button" data-pause-step="2" aria-pressed="false"><span aria-hidden="true">·</span><strong>удержать</strong><small>удерживайте</small></button>
-        <button class="pause-step" type="button" data-pause-step="3" aria-pressed="false"><span aria-hidden="true">·</span><strong>отпустить</strong><small>отпустите кнопку</small></button>
-        <button class="pause-step" type="button" data-pause-step="4" aria-pressed="false"><span aria-hidden="true">·</span><strong>остаться</strong><small>побудьте ещё немного</small></button>
+      <div class="pause-stage" data-pause-stage><div class="pause-breath" aria-hidden="true"><span></span></div><p data-pause-message data-i18n-parts="[&quot;нажмите первый шаг, чтобы начать&quot;]">press the first step to begin</p></div>
+      <div class="pause-steps" role="group" aria-label="steps for a pause" data-pause-steps data-i18n-aria-label="шаги паузы">
+        <button class="pause-step is-current" type="button" data-pause-step="1" aria-pressed="false"><span aria-hidden="true">·</span><strong data-i18n-parts="[&quot;заметить&quot;]">notice</strong><small data-i18n-parts="[&quot;нажмите&quot;]">press</small></button>
+        <button class="pause-step" type="button" data-pause-step="2" aria-pressed="false"><span aria-hidden="true">·</span><strong data-i18n-parts="[&quot;удержать&quot;]">hold</strong><small data-i18n-parts="[&quot;удерживайте&quot;]">keep holding</small></button>
+        <button class="pause-step" type="button" data-pause-step="3" aria-pressed="false"><span aria-hidden="true">·</span><strong data-i18n-parts="[&quot;отпустить&quot;]">release</strong><small data-i18n-parts="[&quot;отпустите кнопку&quot;]">release the button</small></button>
+        <button class="pause-step" type="button" data-pause-step="4" aria-pressed="false"><span aria-hidden="true">·</span><strong data-i18n-parts="[&quot;остаться&quot;]">stay</strong><small data-i18n-parts="[&quot;побудьте ещё немного&quot;]">stay a little longer</small></button>
       </div>
     </div>
-    <div class="pause-progress-line"><progress data-pause-progress value="0" max="4">0 из 4</progress><span data-pause-progress-label>0 / 4</span></div>
-    <div class="pause-actions"><button class="workshop-button" type="button" data-pause-skip>пропустить шаг</button><button class="workshop-button" type="button" data-pause-restart>начать заново</button></div>
+    <div class="pause-progress-line"><progress data-pause-progress value="0" max="4" data-i18n-parts="[&quot;0 из 4&quot;]">0 of 4</progress><span data-pause-progress-label>0 / 4</span></div>
+    <div class="pause-actions"><button class="workshop-button" type="button" data-pause-skip data-i18n-parts="[&quot;пропустить шаг&quot;]">skip a step</button><button class="workshop-button" type="button" data-pause-restart data-i18n-parts="[&quot;начать заново&quot;]">start again</button></div>
   </section>
 
   <section class="workshop-scene" id="workshop-letter" data-workshop-scene="letter" role="tabpanel" tabindex="0" aria-labelledby="tab-letter letter-title" hidden>
     <div class="scene-heading">
-      <h2 id="letter-title">свернуть записку</h2>
-      <p>напишите пару слов. они появятся на открытке</p>
+      <h2 id="letter-title" data-i18n-parts="[&quot;свернуть записку&quot;]">fold a note</h2>
+      <p data-i18n-parts="[&quot;напишите пару слов. они появятся на открытке&quot;]">write a few words. they will appear on your card</p>
     </div>
     <div class="letter-layout">
       <form class="letter-form" data-letter-form>
-        <label for="letter-note">ваша записка</label>
-        <textarea id="letter-note" name="note" data-letter-note rows="4" placeholder="например: я рядом" aria-describedby="letter-note-help letter-note-count"></textarea>
-        <div class="field-meta" id="letter-note-help"><span>до 120 знаков</span><span id="letter-note-count" data-letter-count>0 / 120</span></div>
-        <fieldset class="letter-tokens"><legend>выберите знак для открытки</legend>
+        <label for="letter-note" data-i18n-parts="[&quot;ваша записка&quot;]">your note</label>
+        <textarea id="letter-note" name="note" data-letter-note rows="4" placeholder="for example: I&#x27;m here" aria-describedby="letter-note-help letter-note-count" data-i18n-placeholder="например: я рядом"></textarea>
+        <div class="field-meta" id="letter-note-help"><span data-i18n-parts="[&quot;до 120 знаков&quot;]">up to 120 characters</span><span id="letter-note-count" data-letter-count>0 / 120</span></div>
+        <fieldset class="letter-tokens"><legend data-i18n-parts="[&quot;выберите знак для открытки&quot;]">choose a sign for your card</legend>
           <div class="letter-token-options">
-            <button class="letter-token is-selected" type="button" data-note-token="pulse" aria-label="выбрать знак пульс" aria-pressed="true"><span class="token-glyph token-art-pulse" aria-hidden="true"></span><span class="visually-hidden">пульс</span></button>
-            <button class="letter-token" type="button" data-note-token="spark" aria-label="выбрать знак искра" aria-pressed="false"><span class="token-glyph token-art-spark" aria-hidden="true"></span><span class="visually-hidden">искра</span></button>
-            <button class="letter-token" type="button" data-note-token="wave" aria-label="выбрать знак волна" aria-pressed="false"><span class="token-glyph token-art-wave" aria-hidden="true"></span><span class="visually-hidden">волна</span></button>
-            <button class="letter-token" type="button" data-note-token="anchor" aria-label="выбрать знак якорь" aria-pressed="false"><span class="token-glyph token-art-anchor" aria-hidden="true"></span><span class="visually-hidden">якорь</span></button>
+            <button class="letter-token is-selected" type="button" data-note-token="pulse" aria-label="choose pulse" aria-pressed="true" data-i18n-aria-label="выбрать знак пульс"><span class="token-glyph token-art-pulse" aria-hidden="true"></span><span class="visually-hidden" data-i18n-parts="[&quot;пульс&quot;]">pulse</span></button>
+            <button class="letter-token" type="button" data-note-token="spark" aria-label="choose spark" aria-pressed="false" data-i18n-aria-label="выбрать знак искра"><span class="token-glyph token-art-spark" aria-hidden="true"></span><span class="visually-hidden" data-i18n-parts="[&quot;искра&quot;]">spark</span></button>
+            <button class="letter-token" type="button" data-note-token="wave" aria-label="choose wave" aria-pressed="false" data-i18n-aria-label="выбрать знак волна"><span class="token-glyph token-art-wave" aria-hidden="true"></span><span class="visually-hidden" data-i18n-parts="[&quot;волна&quot;]">wave</span></button>
+            <button class="letter-token" type="button" data-note-token="anchor" aria-label="choose anchor" aria-pressed="false" data-i18n-aria-label="выбрать знак якорь"><span class="token-glyph token-art-anchor" aria-hidden="true"></span><span class="visually-hidden" data-i18n-parts="[&quot;якорь&quot;]">anchor</span></button>
           </div>
         </fieldset>
-        <button class="workshop-button workshop-button-primary" type="submit" data-letter-submit>свернуть записку <span aria-hidden="true">↗</span></button>
+        <button class="workshop-button workshop-button-primary" type="submit" data-letter-submit data-i18n-parts="[&quot;свернуть записку &quot;]">fold a note <span aria-hidden="true">↗</span></button>
       </form>
       <div class="letter-stage" data-letter-stage>
-        <div class="envelope" data-envelope><div class="envelope-back"></div><div class="envelope-note" data-envelope-note>ваш текст<br>появится здесь</div><div class="envelope-front"></div><div class="envelope-flap"></div><span class="envelope-token token-art-pulse" data-envelope-token aria-hidden="true"></span></div>
-        <p class="letter-stage-caption" data-letter-result>введите текст и выберите знак</p>
+        <div class="envelope" data-envelope><div class="envelope-back"></div><div class="envelope-note" data-envelope-note data-i18n-parts="[&quot;ваш текст&quot;, &quot;появится здесь&quot;]">your words<br>will appear here</div><div class="envelope-front"></div><div class="envelope-flap"></div><span class="envelope-token token-art-pulse" data-envelope-token aria-hidden="true"></span></div>
+        <p class="letter-stage-caption" data-letter-result data-i18n-parts="[&quot;введите текст и выберите знак&quot;]">write a note and choose a sign</p>
       </div>
     </div>
   </section>
 
   <section class="workshop-scene" id="workshop-rhythm" data-workshop-scene="rhythm" role="tabpanel" tabindex="0" aria-labelledby="tab-rhythm rhythm-title" hidden>
     <div class="scene-heading">
-      <h2 id="rhythm-title">сыграть ритм</h2>
-      <p>нажимайте на кнопки или клавиши от 1 до 4. ритм запишется</p>
+      <h2 id="rhythm-title" data-i18n-parts="[&quot;сыграть ритм&quot;]">play a rhythm</h2>
+      <p data-i18n-parts="[&quot;нажимайте на кнопки или клавиши от 1 до 4. ритм запишется&quot;]">tap the pads or press keys 1 to 4. your rhythm will be recorded</p>
     </div>
     <div class="rhythm-layout">
-      <div class="rhythm-pads" role="group" aria-label="клавиши ритма" data-rhythm-pads>
-        <button class="rhythm-pad rhythm-pad-one" type="button" data-rhythm-pad="1"><span>1</span><strong>пульс</strong></button>
-        <button class="rhythm-pad rhythm-pad-two" type="button" data-rhythm-pad="2"><span>2</span><strong>искра</strong></button>
-        <button class="rhythm-pad rhythm-pad-three" type="button" data-rhythm-pad="3"><span>3</span><strong>волна</strong></button>
-        <button class="rhythm-pad rhythm-pad-four" type="button" data-rhythm-pad="4"><span>4</span><strong>якорь</strong></button>
+      <div class="rhythm-pads" role="group" aria-label="rhythm keys" data-rhythm-pads data-i18n-aria-label="клавиши ритма">
+        <button class="rhythm-pad rhythm-pad-one" type="button" data-rhythm-pad="1"><span>1</span><strong data-i18n-parts="[&quot;пульс&quot;]">pulse</strong></button>
+        <button class="rhythm-pad rhythm-pad-two" type="button" data-rhythm-pad="2"><span>2</span><strong data-i18n-parts="[&quot;искра&quot;]">spark</strong></button>
+        <button class="rhythm-pad rhythm-pad-three" type="button" data-rhythm-pad="3"><span>3</span><strong data-i18n-parts="[&quot;волна&quot;]">wave</strong></button>
+        <button class="rhythm-pad rhythm-pad-four" type="button" data-rhythm-pad="4"><span>4</span><strong data-i18n-parts="[&quot;якорь&quot;]">anchor</strong></button>
       </div>
-      <div class="rhythm-timeline" data-rhythm-timeline role="group" aria-label="ритм до 32 ударов" aria-describedby="rhythm-sequence-description"><div class="rhythm-timeline-head"><span>ваш ритм</span><span data-rhythm-count>0 / 32</span></div><div class="rhythm-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="rhythm-result" data-rhythm-result id="rhythm-sequence-description" role="status" aria-live="polite" aria-atomic="true">нажмите клавишу от 1 до 4</div></div>
+      <div class="rhythm-timeline" data-rhythm-timeline role="group" aria-label="rhythm, up to 32 beats" aria-describedby="rhythm-sequence-description" data-i18n-aria-label="ритм до 32 ударов"><div class="rhythm-timeline-head"><span data-i18n-parts="[&quot;ваш ритм&quot;]">your rhythm</span><span data-rhythm-count>0 / 32</span></div><div class="rhythm-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="rhythm-result" data-rhythm-result id="rhythm-sequence-description" role="status" aria-live="polite" aria-atomic="true" data-i18n-parts="[&quot;нажмите клавишу от 1 до 4&quot;]">press a key from 1 to 4</div></div>
     </div>
   </section>
 
-  <div class="workshop-actions" data-workshop-actions aria-label="действия с результатом">
-    <div class="workshop-edit-actions"><button class="workshop-button workshop-button-quiet" type="button" data-workshop-action="reset">начать заново</button><button class="workshop-button workshop-button-quiet" type="button" data-workshop-action="repeat">повторить сигнал</button></div>
-    <div class="workshop-save-actions"><button class="workshop-button" type="button" data-workshop-action="copy" title="скопировать ссылку на текущий результат">скопировать ссылку <span aria-hidden="true">↗</span></button><button class="workshop-button" type="button" data-workshop-action="portable">скачать открытку <span aria-hidden="true">↓</span></button><button class="workshop-button workshop-button-dark" type="button" data-workshop-action="export">сохранить png <span aria-hidden="true">↓</span></button></div>
-    <p class="workshop-actions-hint" data-workshop-url-note>по ссылке можно вернуться к этому сигналу или показать его кому-нибудь</p>
+  <div class="workshop-actions" data-workshop-actions aria-label="save or share your result" data-i18n-aria-label="действия с результатом">
+    <div class="workshop-edit-actions"><button class="workshop-button workshop-button-quiet" type="button" data-workshop-action="reset" data-i18n-parts="[&quot;начать заново&quot;]">start again</button><button class="workshop-button workshop-button-quiet" type="button" data-workshop-action="repeat" data-i18n-parts="[&quot;повторить сигнал&quot;]">repeat the signal</button></div>
+    <div class="workshop-save-actions"><button class="workshop-button" type="button" data-workshop-action="copy" title="copy a link to your result" data-i18n-parts="[&quot;скопировать ссылку &quot;]" data-i18n-title="скопировать ссылку на текущий результат">copy link <span aria-hidden="true">↗</span></button><button class="workshop-button" type="button" data-workshop-action="portable" data-i18n-parts="[&quot;скачать открытку &quot;]">download card <span aria-hidden="true">↓</span></button><button class="workshop-button workshop-button-dark" type="button" data-workshop-action="export" data-i18n-parts="[&quot;сохранить png &quot;]">save png <span aria-hidden="true">↓</span></button></div>
+    <p class="workshop-actions-hint" data-workshop-url-note data-i18n-parts="[&quot;по ссылке можно вернуться к этому сигналу или показать его кому-нибудь&quot;]">use the link to return to your signal or share it with someone</p>
   </div>
-  <p class="workshop-note">всё остаётся в браузере. аккаунт не нужен</p>
+  <p class="workshop-note" data-i18n-parts="[&quot;всё остаётся в браузере. аккаунт не нужен&quot;]">everything stays in your browser. no account needed</p>
   </div>
 </main>
-<footer class="workshop-footer"><a class="footer-author" href="https://chebaturkin.com" target="_blank" rel="noopener noreferrer">сделал Тимофей Чебатуркин <span aria-hidden="true">↗</span></a><p>signal, можно без слов.</p><a href="https://github.com/chebaturkin/fondy-signal" target="_blank" rel="noopener noreferrer">код на github <span aria-hidden="true">↗</span></a></footer>
+<footer class="workshop-footer"><a class="footer-author" href="https://chebaturkin.com" target="_blank" rel="noopener noreferrer" data-i18n-parts="[&quot;сделал Тимофей Чебатуркин &quot;]">made by Timofey Chebaturkin <span aria-hidden="true">↗</span></a><p data-i18n-parts="[&quot;signal, можно без слов.&quot;]">signal, words are optional.</p><a href="https://github.com/chebaturkin/fondy-signal" target="_blank" rel="noopener noreferrer" data-i18n-parts="[&quot;код на github &quot;]">code on github <span aria-hidden="true">↗</span></a></footer>

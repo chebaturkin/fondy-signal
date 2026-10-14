@@ -20,7 +20,7 @@ report: dict[str, object] = {"pages": [], "interactions": [], "errors": [], "rou
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch()
-    page = browser.new_page(reduced_motion="reduce")
+    page = browser.new_page(reduced_motion="reduce", locale="ru-RU")
     page.on("pageerror", lambda error: report["errors"].append(str(error)))
 
     for width in WIDTHS:
