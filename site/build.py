@@ -106,8 +106,8 @@ def main() -> None:
     (assets / "site.js").write_text(scripts, encoding="utf-8")
 
     landing = page(
-        "signal · побудь здесь немного",
-        "собери сигнал, оставь записку или сделай паузу. fondy побудет рядом. всё работает в браузере.",
+        "signal · мастерская с fondy",
+        "соберите сигнал, оставьте записку или сделайте паузу. fondy побудет рядом. всё работает в браузере.",
         read_text(WORKSHOP_FILES["html"]),
     )
     (ROOT / "index.html").write_text(landing, encoding="utf-8")

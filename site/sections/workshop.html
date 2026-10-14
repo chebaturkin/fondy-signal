@@ -6,18 +6,18 @@
 
 <main id="main" class="fondy-workshop" data-workshop-root tabindex="-1">
   <section class="workshop-hero" aria-labelledby="workshop-title">
-    <h1 id="workshop-title">передай<br><em>сигнал.</em></h1>
-    <p class="workshop-lede">собери несколько знаков, оставь записку или просто сделай паузу. fondy побудет рядом.</p>
-    <a class="workshop-start" href="#workshop-desk">давай попробуем <span aria-hidden="true">↓</span></a>
+    <h1 id="workshop-title">передать<br><em>сигнал.</em></h1>
+    <p class="workshop-lede">соберите несколько знаков, оставьте записку или просто сделайте паузу. fondy побудет рядом.</p>
+    <a class="workshop-start" href="#workshop-desk">попробовать <span aria-hidden="true">↓</span></a>
   </section>
 
   <aside class="workshop-companion" aria-label="fondy рядом">
     <figure class="workshop-mascot-wrap" data-fondy-wrap>
       <div class="workshop-mascot-stage" data-fondy-stage>
         <svg class="fondy-signal-lines" viewBox="0 0 320 320" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="m35 103-13-6m23-14-7-15M274 86l12-10m-2 28 19-2"/></g></svg>
-        <img class="workshop-mascot" data-fondy-mascot src="assets/mascot/fondy-greeting-color-light.svg" alt="fondy машет тебе" width="375" height="385" fetchpriority="high">
+        <img class="workshop-mascot" data-fondy-mascot src="assets/mascot/fondy-greeting-color-light.svg" alt="fondy машет вам" width="375" height="385" fetchpriority="high">
       </div>
-      <figcaption class="fondy-caption"><span class="fondy-name">fondy рядом</span><span class="fondy-message" data-fondy-message>начнём со знака? выбери любой.</span></figcaption>
+      <figcaption class="fondy-caption"><span class="fondy-name">fondy рядом</span><span class="fondy-message" data-fondy-message>начнём со знака? выберите любой.</span></figcaption>
     </figure>
   </aside>
 
@@ -29,17 +29,17 @@
     <button class="scene-tab" type="button" role="tab" id="tab-rhythm" data-workshop-mode="rhythm" aria-controls="workshop-rhythm" aria-selected="false" tabindex="-1"><strong>ритм</strong></button>
   </nav>
 
-  <p class="workshop-status visually-hidden" id="workshop-status" data-workshop-status role="status" aria-live="polite" aria-atomic="true">добавь первый знак</p>
+  <p class="workshop-status visually-hidden" id="workshop-status" data-workshop-status role="status" aria-live="polite" aria-atomic="true">добавьте первый знак</p>
 
   <section class="workshop-scene is-active" id="workshop-signal" data-workshop-scene="signal" role="tabpanel" tabindex="0" aria-labelledby="tab-signal signal-title">
     <div class="scene-heading">
       <h2 id="signal-title">собрать сигнал</h2>
-      <p>нажми на знак. можно добавить четыре и менять их местами</p>
+      <p>нажмите на знак. можно добавить четыре и менять их местами</p>
     </div>
     <div class="signal-layout">
       <div class="token-palette" data-signal-palette role="group" aria-labelledby="signal-palette-title">
-        <h3 class="visually-hidden" id="signal-palette-title">выбери знак</h3>
-        <p class="visually-hidden" id="signal-choice-help">нажми на знак или перетащи его в свободное место</p>
+        <h3 class="visually-hidden" id="signal-palette-title">выберите знак</h3>
+        <p class="visually-hidden" id="signal-choice-help">нажмите на знак или перетащите его в свободное место</p>
         <div class="token-options">
         <button class="token-choice" type="button" draggable="true" data-token="pulse" aria-label="добавить знак пульс" aria-describedby="signal-choice-help"><span class="token-choice-art token-art-pulse" aria-hidden="true"></span><span class="token-choice-copy"><strong>пульс</strong></span></button>
         <button class="token-choice" type="button" draggable="true" data-token="spark" aria-label="добавить знак искра" aria-describedby="signal-choice-help"><span class="token-choice-art token-art-spark" aria-hidden="true"></span><span class="token-choice-copy"><strong>искра</strong></span></button>
@@ -47,8 +47,8 @@
         <button class="token-choice" type="button" draggable="true" data-token="anchor" aria-label="добавить знак якорь" aria-describedby="signal-choice-help"><span class="token-choice-art token-art-anchor" aria-hidden="true"></span><span class="token-choice-copy"><strong>якорь</strong></span></button>
         </div>
       </div>
-      <div class="signal-stage" data-signal-stage role="group" aria-label="твой сигнал" aria-describedby="signal-help">
-        <div class="signal-stage-top"><span>твой сигнал</span><span data-signal-count>0 / 4</span></div>
+      <div class="signal-stage" data-signal-stage role="group" aria-label="ваш сигнал" aria-describedby="signal-help">
+        <div class="signal-stage-top"><span>ваш сигнал</span><span data-signal-count>0 / 4</span></div>
         <div class="signal-slots" data-signal-slots>
           <span class="signal-slot" data-signal-slot="0"><span aria-hidden="true">+</span></span>
           <span class="signal-slot" data-signal-slot="1"><span aria-hidden="true">+</span></span>
@@ -59,21 +59,21 @@
         <button class="signal-undo" type="button" data-signal-undo aria-label="убрать последний знак из сигнала" disabled>убрать последний <span aria-hidden="true">↶</span></button></div>
       </div>
     </div>
-    <p class="scene-result" data-signal-result>выбери знак, чтобы начать</p>
+    <p class="scene-result" data-signal-result>выберите знак, чтобы начать</p>
   </section>
 
   <section class="workshop-scene" id="workshop-pause" data-workshop-scene="pause" role="tabpanel" tabindex="0" aria-labelledby="tab-pause pause-title" hidden>
     <div class="scene-heading">
       <h2 id="pause-title">поймать паузу</h2>
-      <p>нажми, немного подержи и отпусти. можно никуда не спешить</p>
+      <p>нажмите, немного подержите и отпустите. можно никуда не спешить</p>
     </div>
     <div class="pause-layout">
-      <div class="pause-stage" data-pause-stage><div class="pause-breath" aria-hidden="true"><span></span></div><p data-pause-message>нажми первый шаг, чтобы начать</p></div>
+      <div class="pause-stage" data-pause-stage><div class="pause-breath" aria-hidden="true"><span></span></div><p data-pause-message>нажмите первый шаг, чтобы начать</p></div>
       <div class="pause-steps" role="group" aria-label="шаги паузы" data-pause-steps>
-        <button class="pause-step is-current" type="button" data-pause-step="1" aria-pressed="false"><span aria-hidden="true">·</span><strong>заметь</strong><small>нажми</small></button>
-        <button class="pause-step" type="button" data-pause-step="2" aria-pressed="false"><span aria-hidden="true">·</span><strong>удержи</strong><small>удерживай</small></button>
-        <button class="pause-step" type="button" data-pause-step="3" aria-pressed="false"><span aria-hidden="true">·</span><strong>отпусти</strong><small>отпусти кнопку</small></button>
-        <button class="pause-step" type="button" data-pause-step="4" aria-pressed="false"><span aria-hidden="true">·</span><strong>останься</strong><small>останься ещё немного</small></button>
+        <button class="pause-step is-current" type="button" data-pause-step="1" aria-pressed="false"><span aria-hidden="true">·</span><strong>заметить</strong><small>нажмите</small></button>
+        <button class="pause-step" type="button" data-pause-step="2" aria-pressed="false"><span aria-hidden="true">·</span><strong>удержать</strong><small>удерживайте</small></button>
+        <button class="pause-step" type="button" data-pause-step="3" aria-pressed="false"><span aria-hidden="true">·</span><strong>отпустить</strong><small>отпустите кнопку</small></button>
+        <button class="pause-step" type="button" data-pause-step="4" aria-pressed="false"><span aria-hidden="true">·</span><strong>остаться</strong><small>побудьте ещё немного</small></button>
       </div>
     </div>
     <div class="pause-progress-line"><progress data-pause-progress value="0" max="4">0 из 4</progress><span data-pause-progress-label>0 / 4</span></div>
@@ -83,14 +83,14 @@
   <section class="workshop-scene" id="workshop-letter" data-workshop-scene="letter" role="tabpanel" tabindex="0" aria-labelledby="tab-letter letter-title" hidden>
     <div class="scene-heading">
       <h2 id="letter-title">свернуть записку</h2>
-      <p>напиши пару слов. они появятся на открытке</p>
+      <p>напишите пару слов. они появятся на открытке</p>
     </div>
     <div class="letter-layout">
       <form class="letter-form" data-letter-form>
-        <label for="letter-note">твоя записка</label>
+        <label for="letter-note">ваша записка</label>
         <textarea id="letter-note" name="note" data-letter-note rows="4" placeholder="например: я рядом" aria-describedby="letter-note-help letter-note-count"></textarea>
         <div class="field-meta" id="letter-note-help"><span>до 120 знаков</span><span id="letter-note-count" data-letter-count>0 / 120</span></div>
-        <fieldset class="letter-tokens"><legend>выбери знак для открытки</legend>
+        <fieldset class="letter-tokens"><legend>выберите знак для открытки</legend>
           <div class="letter-token-options">
             <button class="letter-token is-selected" type="button" data-note-token="pulse" aria-label="выбрать знак пульс" aria-pressed="true"><span class="token-glyph token-art-pulse" aria-hidden="true"></span><span class="visually-hidden">пульс</span></button>
             <button class="letter-token" type="button" data-note-token="spark" aria-label="выбрать знак искра" aria-pressed="false"><span class="token-glyph token-art-spark" aria-hidden="true"></span><span class="visually-hidden">искра</span></button>
@@ -101,8 +101,8 @@
         <button class="workshop-button workshop-button-primary" type="submit" data-letter-submit>свернуть записку <span aria-hidden="true">↗</span></button>
       </form>
       <div class="letter-stage" data-letter-stage>
-        <div class="envelope" data-envelope><div class="envelope-back"></div><div class="envelope-note" data-envelope-note>твой текст<br>появится здесь</div><div class="envelope-front"></div><div class="envelope-flap"></div><span class="envelope-token token-art-pulse" data-envelope-token aria-hidden="true"></span></div>
-        <p class="letter-stage-caption" data-letter-result>введи текст и выбери знак</p>
+        <div class="envelope" data-envelope><div class="envelope-back"></div><div class="envelope-note" data-envelope-note>ваш текст<br>появится здесь</div><div class="envelope-front"></div><div class="envelope-flap"></div><span class="envelope-token token-art-pulse" data-envelope-token aria-hidden="true"></span></div>
+        <p class="letter-stage-caption" data-letter-result>введите текст и выберите знак</p>
       </div>
     </div>
   </section>
@@ -110,7 +110,7 @@
   <section class="workshop-scene" id="workshop-rhythm" data-workshop-scene="rhythm" role="tabpanel" tabindex="0" aria-labelledby="tab-rhythm rhythm-title" hidden>
     <div class="scene-heading">
       <h2 id="rhythm-title">сыграть ритм</h2>
-      <p>нажимай на кнопки или клавиши от 1 до 4. ритм запишется</p>
+      <p>нажимайте на кнопки или клавиши от 1 до 4. ритм запишется</p>
     </div>
     <div class="rhythm-layout">
       <div class="rhythm-pads" role="group" aria-label="клавиши ритма" data-rhythm-pads>
@@ -119,7 +119,7 @@
         <button class="rhythm-pad rhythm-pad-three" type="button" data-rhythm-pad="3"><span>3</span><strong>волна</strong></button>
         <button class="rhythm-pad rhythm-pad-four" type="button" data-rhythm-pad="4"><span>4</span><strong>якорь</strong></button>
       </div>
-      <div class="rhythm-timeline" data-rhythm-timeline role="group" aria-label="ритм до 32 ударов" aria-describedby="rhythm-sequence-description"><div class="rhythm-timeline-head"><span>твой ритм</span><span data-rhythm-count>0 / 32</span></div><div class="rhythm-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="rhythm-result" data-rhythm-result id="rhythm-sequence-description" role="status" aria-live="polite" aria-atomic="true">нажми клавишу от 1 до 4</div></div>
+      <div class="rhythm-timeline" data-rhythm-timeline role="group" aria-label="ритм до 32 ударов" aria-describedby="rhythm-sequence-description"><div class="rhythm-timeline-head"><span>ваш ритм</span><span data-rhythm-count>0 / 32</span></div><div class="rhythm-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="rhythm-result" data-rhythm-result id="rhythm-sequence-description" role="status" aria-live="polite" aria-atomic="true">нажмите клавишу от 1 до 4</div></div>
     </div>
   </section>
 

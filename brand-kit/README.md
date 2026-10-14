@@ -9,7 +9,7 @@
 | `assets/favicons/favicon.svg` | тот же знак для вкладки браузера |
 | `fonts` | dela gothic one, onest и тексты лицензий |
 
-`python3 site/build.py` копирует эти группы в `site/assets` и `site/public/assets`. получившиеся файлы не редактируй вручную.
+`python3 site/build.py` копирует эти группы в `site/assets` и `site/public/assets`. получившиеся файлы не редактируйте вручную.
 
 ## цвета и шрифты
 

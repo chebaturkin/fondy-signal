@@ -42,7 +42,7 @@ p{{margin:27px 0 0;font-size:21px;line-height:1.55;letter-spacing:-.2px}}
 .fondy{{position:absolute;z-index:1;left:23px;bottom:7px;width:340px}}
 .wave{{position:absolute;right:40px;top:119px;width:435px;height:380px;color:#ff6b35}}
 </style><img class="logo" src="{logo}" alt="signal">
-<h1>передай<br><span>сигнал.</span></h1>
+<h1>передать<br><span>сигнал.</span></h1>
 <p>знаки, пауза, записка и ритм.<br>fondy побудет рядом.</p>
 <div class="figure"><img class="fondy" src="{mascot}" alt="fondy"></div>
 <svg class="wave" viewBox="0 0 435 380" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="m38 88-14-7m24-15-6-16M390 72l13-11m-2 29 20-2"/></g></svg>
@@ -78,6 +78,9 @@ with sync_playwright() as playwright:
         if mode == "rhythm":
             for key in ("1", "4", "2", "3", "1", "2", "4", "1"):
                 source.keyboard.press(key)
+        source.locator("h1").click()
+        source.evaluate("window.scrollTo(0, 0)")
+        source.screenshot(path=str(OUT / f"signal-{mode}.png"), full_page=True)
         markup = source.locator(f'.{mode}-layout').evaluate("""node => {
             const clone = node.cloneNode(true);
             const fields = node.querySelectorAll('textarea');
@@ -90,5 +93,12 @@ with sync_playwright() as playwright:
         art.evaluate("document.fonts.ready")
         assert not art.evaluate("document.documentElement.scrollWidth > innerWidth || document.documentElement.scrollHeight > innerHeight")
         art.screenshot(path=str(OUT / f"signal-gallery-{mode}.png"))
+    source.locator('[role="tab"][data-workshop-mode="signal"]').click()
+    source.locator("h1").click()
+    source.evaluate("window.scrollTo(0, 0)")
+    source.screenshot(path=str(OUT / "signal-preview.png"), full_page=True)
+    source.set_viewport_size({"width": 390, "height": 844})
+    source.evaluate("window.scrollTo(0, 0)")
+    source.screenshot(path=str(OUT / "signal-mobile.png"), full_page=True)
     browser.close()
 print("Rendered signal cover and four scene previews in docs/.")

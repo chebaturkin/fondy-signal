@@ -62,10 +62,10 @@
   const mascotWrap = root.querySelector('[data-fondy-wrap]');
   const companionMessage = root.querySelector('[data-fondy-message]');
   const companionPrompts = {
-    signal: 'начнём со знака? выбери любой.',
+    signal: 'начнём со знака? выберите любой.',
     pause: 'побудем здесь. у нас пауза.',
     letter: 'что напишем? я подожду.',
-    rhythm: 'задавай ритм, я подхвачу.',
+    rhythm: 'задайте ритм, я подхвачу.',
   };
   const timers = new Set();
   const rafs = new Set();
@@ -240,7 +240,7 @@
     });
     const result = root.querySelector('[data-signal-result]');
     if (result) {
-      result.textContent = state.signal.length ? `сигнал собран: ${state.signal.map(name => tokenNames[name] || name).join(' · ')}` : 'выбери знак, чтобы начать';
+      result.textContent = state.signal.length ? `сигнал собран: ${state.signal.map(name => tokenNames[name] || name).join(' · ')}` : 'выберите знак, чтобы начать';
     }
     root.querySelectorAll('[data-signal-undo]').forEach(button => { button.disabled = !state.signal.length; });
   }
@@ -292,10 +292,10 @@
       token.dataset.envelopeToken = draftNoteToken;
     }
     const note = root.querySelector('[data-envelope-note]');
-    if (note && !state.note) note.textContent = 'твой текст\nпоявится здесь';
+    if (note && !state.note) note.textContent = 'ваш текст\nпоявится здесь';
     if (note && state.note) note.textContent = state.note;
     const result = root.querySelector('[data-letter-result]');
-    if (result) result.textContent = state.note ? 'записка сложена. скачай открытку' : 'введи текст и выбери знак';
+    if (result) result.textContent = state.note ? 'записка сложена. скачайте открытку' : 'введите текст и выберите знак';
   }
 
   function renderPause() {
@@ -313,7 +313,7 @@
       else button.removeAttribute('aria-current');
     });
     const message = root.querySelector('[data-pause-message]');
-    if (message) message.textContent = pauseStep >= 4 ? 'готово: 4 шага' : ['нажми первый шаг, чтобы начать', 'удерживай кнопку', 'отпусти кнопку', 'останься ещё немного'][Math.min(pauseStep, 3)];
+    if (message) message.textContent = pauseStep >= 4 ? 'готово: 4 шага' : ['нажмите первый шаг, чтобы начать', 'удерживайте кнопку', 'отпустите кнопку', 'побудьте ещё немного'][Math.min(pauseStep, 3)];
   }
 
   function startPauseStep(event) {
@@ -324,7 +324,7 @@
     button.classList.add('is-holding');
     root.querySelector('[data-pause-stage]')?.classList.add('is-holding');
     if (event.pointerId != null && button.setPointerCapture) { try { button.setPointerCapture(event.pointerId); } catch (_) { /* unsupported */ } }
-    announce(`шаг ${step}: удерживай кнопку`);
+    announce(`шаг ${step}: удерживайте кнопку`);
   }
   function finishPauseStep(event) {
     const button = event.currentTarget;
@@ -346,14 +346,14 @@
   }
   function restartPause(quiet = false) {
     pauseHolding = false; pauseStep = 0; cancelTimer(pauseDelayTimer); pauseDelayTimer = null; renderPause();
-    if (!quiet) announce('пауза сброшена. начни с первого шага');
+    if (!quiet) announce('пауза сброшена. начните с первого шага');
   }
 
   function renderRhythm() {
     const count = root.querySelector('[data-rhythm-count]');
     if (count) count.textContent = `${state.rhythm.length} / ${rhythmLimit}`;
     const result = root.querySelector('[data-rhythm-result]');
-    if (result) result.textContent = state.rhythm.length ? state.rhythm.join(' · ') : 'нажми 1–4, чтобы записать ритм';
+    if (result) result.textContent = state.rhythm.length ? state.rhythm.join(' · ') : 'нажмите клавиши от 1 до 4, чтобы записать ритм';
   }
 
   function commitBeat(pad) {
@@ -383,7 +383,7 @@
     }, isReducedMotion() ? 0 : 160);
   }
   function replayRhythm(events) {
-    if (!events || !events.length) { announce('нажми 1–4, чтобы записать ритм'); return; }
+    if (!events || !events.length) { announce('нажмите клавиши от 1 до 4, чтобы записать ритм'); return; }
     cancelSceneWork();
     const token = ++rhythmReplayToken;
     const origin = events[0].at;
@@ -413,7 +413,7 @@
     event.preventDefault();
     state = State.normalizeState({ ...state, note: draftNote, noteToken: draftNoteToken });
     lastAction = { type: 'letter', note: draftNote, noteToken: draftNoteToken };
-    commitState(state, draftNote ? 'записка сложена. скачай открытку' : 'пустая записка сложена');
+    commitState(state, draftNote ? 'записка сложена. скачайте открытку' : 'пустая записка сложена');
     const envelope = root.querySelector('[data-envelope]');
     if (envelope) { envelope.classList.remove('is-folded'); void envelope.offsetWidth; envelope.classList.add('is-folded'); }
     react('letter');
@@ -477,7 +477,7 @@
     try {
       await copyText(url);
       announce('ссылка скопирована. этот адрес откроет сигнал позже');
-    } catch (_) { announce('не удалось скопировать. скопируй адрес из строки браузера'); }
+    } catch (_) { announce('не удалось скопировать. скопируйте адрес из строки браузера'); }
   }
 
   function xmlEscape(value) {
@@ -566,11 +566,11 @@
     const title = modeTitles[activeMode] || modeTitles.signal;
     const tokenIds = activeMode === 'signal' && state.signal.length ? state.signal : [state.noteToken || state.signal[state.signal.length - 1] || 'pulse'];
     const [tokenUris, mascotUri, logoUri] = await Promise.all([Promise.resolve(tokenIds.map(name => glyphDataUri(name))), mascotDataUri(), fileDataUri('assets/favicons/signal-logo.svg', 'image/svg+xml')]);
-    const noteLines = wrapExportText(state.note || 'напиши записку в мастерской', 31, 6);
+    const noteLines = wrapExportText(state.note || 'напишите записку в мастерской', 31, 6);
     const signalLabels = state.signal.map(name => tokenNames[name] || name);
     let body = '';
     if (activeMode === 'signal') {
-      body = `<rect x="78" y="288" width="1244" height="425" rx="36" fill="${exportPalette.blue}"/><text x="112" y="336" fill="${exportPalette.paper}" opacity=".7" font-family="EF Onest, sans-serif" font-size="18" font-weight="700" letter-spacing="1">сигнал · ${state.signal.length}/4</text>${state.signal.length ? svgTokenRow(tokenUris, 380) : `<text x="112" y="500" fill="${exportPalette.paper}" opacity=".82" font-family="EF Onest, sans-serif" font-size="29">добавь первый знак в мастерской</text>`}<text x="92" y="816" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="26" font-weight="700">${xmlEscape(signalLabels.length ? signalLabels.join('  ·  ') : 'сигнал пока пустой')}</text>`;
+      body = `<rect x="78" y="288" width="1244" height="425" rx="36" fill="${exportPalette.blue}"/><text x="112" y="336" fill="${exportPalette.paper}" opacity=".7" font-family="EF Onest, sans-serif" font-size="18" font-weight="700" letter-spacing="1">сигнал · ${state.signal.length}/4</text>${state.signal.length ? svgTokenRow(tokenUris, 380) : `<text x="112" y="500" fill="${exportPalette.paper}" opacity=".82" font-family="EF Onest, sans-serif" font-size="29">добавьте первый знак в мастерской</text>`}<text x="92" y="816" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="26" font-weight="700">${xmlEscape(signalLabels.length ? signalLabels.join('  ·  ') : 'сигнал пока пустой')}</text>`;
     } else if (activeMode === 'letter') {
       const tokenUri = tokenUris[0];
       body = `<rect x="78" y="288" width="1244" height="450" rx="36" fill="${exportPalette.orange}"/><rect x="116" y="340" width="622" height="326" rx="22" fill="${exportPalette.paper}" transform="rotate(-2 427 503)"/><text x="160" y="408" fill="${exportPalette.ink}" opacity=".55" font-family="EF Onest, sans-serif" font-size="16" font-weight="700" letter-spacing="1">записка</text><text x="160" y="466" fill="${exportPalette.ink}" font-family="EF Dela, sans-serif" font-size="34" letter-spacing="-.6">${svgLines(noteLines, 160, 466, 43)}</text>${svgImage(tokenUri, 630, 560, 72, 72)}<path d="M838 388h340l-170 142-170-142Z" fill="${exportPalette.paper}"/><path d="M838 388v280h340V388" fill="none" stroke="${exportPalette.ink}" stroke-opacity=".18" stroke-width="4"/><path d="M838 668l170-142 170 142" fill="none" stroke="${exportPalette.blue}" stroke-width="8" stroke-linejoin="round"/><text x="860" y="735" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="19" font-weight="700">записка сложена</text>`;
@@ -578,8 +578,8 @@
       const dots = Array.from({ length: 4 }, (_, index) => { const x = 150 + index * 270; const done = index < pauseStep; return `<circle cx="${x}" cy="480" r="76" fill="${done ? exportPalette.orange : exportPalette.paper}"/><text x="${x}" y="492" text-anchor="middle" fill="${exportPalette.ink}" font-family="EF Dela, sans-serif" font-size="38">0${index + 1}</text>`; }).join('');
       body = `<rect x="78" y="288" width="1244" height="430" rx="36" fill="${exportPalette.ink}"/>${dots}<path d="M226 610H1034" stroke="${exportPalette.paper}" stroke-opacity=".28" stroke-width="3" stroke-dasharray="9 14"/><text x="112" y="784" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="28" font-weight="700">${pauseStep >= 4 ? 'готово: 4 шага' : `пройдено шагов: ${pauseStep} из 4`}</text>`;
     } else {
-      const bars = state.rhythm.length ? state.rhythm.map((pad, index) => { const x = 112 + index * 34; const h = 56 + (pad * 18); const color = [exportPalette.orange, exportPalette.yellow, exportPalette.paper, exportPalette.softBlue][(pad - 1) % 4]; return `<rect x="${x}" y="${632 - h}" width="20" height="${h}" rx="8" fill="${color}"/>`; }).join('') : `<text x="112" y="500" fill="${exportPalette.paper}" opacity=".82" font-family="EF Onest, sans-serif" font-size="29">нажми 1–4, чтобы записать ритм</text>`;
-      body = `<rect x="78" y="288" width="1244" height="430" rx="36" fill="${exportPalette.blue}"/><text x="112" y="338" fill="${exportPalette.paper}" opacity=".72" font-family="EF Onest, sans-serif" font-size="18" font-weight="700" letter-spacing="1">ритм · ${state.rhythm.length}/32</text><line x1="112" y1="632" x2="1220" y2="632" stroke="${exportPalette.paper}" stroke-opacity=".25" stroke-width="3"/>${bars}<text x="92" y="816" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="26" font-weight="700">${xmlEscape(state.rhythm.length ? state.rhythm.join('  ·  ') : 'нажми 1–4, чтобы записать ритм')}</text>`;
+      const bars = state.rhythm.length ? state.rhythm.map((pad, index) => { const x = 112 + index * 34; const h = 56 + (pad * 18); const color = [exportPalette.orange, exportPalette.yellow, exportPalette.paper, exportPalette.softBlue][(pad - 1) % 4]; return `<rect x="${x}" y="${632 - h}" width="20" height="${h}" rx="8" fill="${color}"/>`; }).join('') : `<text x="112" y="500" fill="${exportPalette.paper}" opacity=".82" font-family="EF Onest, sans-serif" font-size="29">нажмите клавиши от 1 до 4, чтобы записать ритм</text>`;
+      body = `<rect x="78" y="288" width="1244" height="430" rx="36" fill="${exportPalette.blue}"/><text x="112" y="338" fill="${exportPalette.paper}" opacity=".72" font-family="EF Onest, sans-serif" font-size="18" font-weight="700" letter-spacing="1">ритм · ${state.rhythm.length}/32</text><line x1="112" y1="632" x2="1220" y2="632" stroke="${exportPalette.paper}" stroke-opacity=".25" stroke-width="3"/>${bars}<text x="92" y="816" fill="${exportPalette.ink}" font-family="EF Onest, sans-serif" font-size="26" font-weight="700">${xmlEscape(state.rhythm.length ? state.rhythm.join('  ·  ') : 'нажмите клавиши от 1 до 4, чтобы записать ритм')}</text>`;
     }
     return `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="export-title export-description"><title id="export-title">${xmlEscape(title)}</title><desc id="export-description">открытка из мастерской fondy</desc><rect width="1400" height="900" rx="48" fill="${exportPalette.paper}"/>${exportHeader(title, mascotUri, logoUri)}${body}<text x="92" y="862" fill="${exportPalette.ink}" opacity=".55" font-family="EF Onest, sans-serif" font-size="17">собрано в браузере · данные никуда не отправляются</text></svg>`;
   }
@@ -620,14 +620,14 @@
 
   function resetCurrentScene() {
     cancelSceneWork();
-    if (activeMode === 'signal') { commitState({ ...state, signal: [] }, 'сигнал сброшен. собери заново'); }
-    else if (activeMode === 'letter') { draftNote = ''; draftNoteToken = 'pulse'; commitState({ ...state, note: '', noteToken: 'pulse' }, 'записка сброшена. напиши новую'); }
-    else if (activeMode === 'pause') { restartPause(true); announce('пауза сброшена. начни с первого шага'); }
-    else if (activeMode === 'rhythm') { rhythmEvents = []; commitState({ ...state, rhythm: [] }, 'ритм сброшен. сыграй заново'); }
+    if (activeMode === 'signal') { commitState({ ...state, signal: [] }, 'сигнал сброшен. соберите заново'); }
+    else if (activeMode === 'letter') { draftNote = ''; draftNoteToken = 'pulse'; commitState({ ...state, note: '', noteToken: 'pulse' }, 'записка сброшена. напишите новую'); }
+    else if (activeMode === 'pause') { restartPause(true); announce('пауза сброшена. начните с первого шага'); }
+    else if (activeMode === 'rhythm') { rhythmEvents = []; commitState({ ...state, rhythm: [] }, 'ритм сброшен. сыграйте заново'); }
   }
   function repeatCurrent() {
-    if (activeMode === 'signal') { if (!state.signal.length) { announce('добавь первый знак'); return; } react('signal'); announce('сигнал повторяется'); }
-    else if (activeMode === 'letter') { if (!state.note) { announce('напиши и сложи записку'); return; } const envelope = root.querySelector('[data-envelope]'); if (envelope) envelope.classList.toggle('is-folded'); react('letter'); announce(envelope?.classList.contains('is-folded') ? 'записка сложена' : 'конверт открыт'); }
+    if (activeMode === 'signal') { if (!state.signal.length) { announce('добавьте первый знак'); return; } react('signal'); announce('сигнал повторяется'); }
+    else if (activeMode === 'letter') { if (!state.note) { announce('напишите и сложите записку'); return; } const envelope = root.querySelector('[data-envelope]'); if (envelope) envelope.classList.toggle('is-folded'); react('letter'); announce(envelope?.classList.contains('is-folded') ? 'записка сложена' : 'конверт открыт'); }
     else if (activeMode === 'pause') { restartPause(); }
     else if (activeMode === 'rhythm') replayRhythm((lastAction && lastAction.type === 'rhythm' ? lastAction.events : rhythmEvents).slice());
   }
