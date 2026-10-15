@@ -1,5 +1,5 @@
-# безопасность
+# security
 
-signal работает без серверной части, базы данных, авторизации и внешних api. браузер хранит состояние в адресе страницы и не отправляет его владельцу проекта. текст записки входит в ссылку и будет доступен её получателю.
+signal has no backend, database, authentication or external apis. workshop state stays in the address after `#`; the app does not send it to the project owner. a note is included in its shared link and can be read by anyone who receives that link.
 
-если вы нашли в репозитории секрет, персональные данные или уязвимость, напишите автору напрямую через [chebaturkin.com](https://chebaturkin.com). пожалуйста, не публикуйте детали до того, как проблема будет исправлена.
+if you find a credential, personal information or a security issue in this repository, contact the author through [chebaturkin.com](https://chebaturkin.com). please share sensitive details privately before making them public.

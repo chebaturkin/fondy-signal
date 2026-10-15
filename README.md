@@ -1,6 +1,6 @@
-# signal
-
 **english** · [русский](README.ru.md)
+
+# signal
 
 a small workshop for signs, notes, pauses and rhythm. make a signal, save a card or share it through a link. fondy stays nearby and responds to what you do.
 
@@ -68,11 +68,11 @@ scenes and controls adapt to the screen. keyboard controls and reduced motion ar
 
 copy the link to return to your result or show it to someone. state is stored in the part of the address after `#`. the note text is part of that link, so anyone who receives it can read it.
 
-download the result as a png or a self-contained html card. the html card opens without the workshop. fonts and illustrations ship with the project; the workshop does not need external apis.
+download the result as a png or an html card that opens on its own. the html card opens without the workshop. fonts and illustrations ship with the project; the workshop does not need external apis.
 
 ## language
 
-the workshop and exported card labels support english and russian. the first visit follows your browser language, with english as the fallback. use the small `ru / en` control beside the github link to choose a language; the browser remembers it. `?lang=en` and `?lang=ru` open a language directly.
+the workshop and exported card labels support english and russian. choose `ru / en` beside the github link. a valid `?lang=en` or `?lang=ru` link takes priority, then your saved choice, the first supported browser language and english as the fallback.
 
 switching keeps your signs, rhythm, pause progress and unfinished note. your own words stay as you wrote them.
 
@@ -106,7 +106,7 @@ open the [local workshop](http://127.0.0.1:8799/?lang=en). the build creates `si
 
 `site/assets`, `site/index.html` and `site/public` are generated. edit the sources and run `site/build.py` to update them.
 
-more details: [workshop](site/README.md) · [visual assets](brand-kit/README.md). after starting the local server, run `python3 docs/render_github.py` to capture both languages from the working workshop.
+more details: [workshop sources](site/README.md) · [visual assets and fonts](brand-kit/README.md). the screenshots above show the english workshop. after starting the local server, run `python3 docs/render_github.py` to refresh both language sets from the working interface.
 
 ## checks
 

@@ -44,3 +44,9 @@ site/assets/
 site/public/
 site/index.html
 site/previews/workshop/
+
+# Local agent notes and instructions
+AGENTS.md
+AGENT_PROMPT.md
+docs/superpowers/
+.codex/
